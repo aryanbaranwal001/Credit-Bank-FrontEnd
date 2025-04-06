@@ -57,7 +57,7 @@ export default function SwapComponent() {
         <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-10 transition-opacity duration-300"></div>
       )}
 
-      <div className="pt-[18vh] w-full max-w-md rounded-xl shadow-xl">
+      <div className="pt-[15vh] w-full max-w-md rounded-xl shadow-xl">
         {/* Tabs */}
         <div className="flex space-x-2 mb-2">
           {["Borrow", "Repay", "History"].map((tab) => (
@@ -121,8 +121,8 @@ export default function SwapComponent() {
           <div className="text-md text-zinc-500 mt-2">$0</div>
         </div>
 
-        <div className="bg-zinc-900 p-4 rounded-xl mt-2 pb-6">
-          <div className="text-base text-zinc-400 mb-4">
+        <div className="bg-zinc-900 px-4 py-2 rounded-xl mt-2 pb-4">
+          <div className="text-base text-zinc-400 mb-3">
             Repayment will be done around
           </div>
           <div className="relative z-20">
