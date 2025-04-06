@@ -658,6 +658,10 @@ video {
   max-height: 80vh;
 }
 
+.max-h-\[50vh\] {
+  max-height: 50vh;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -880,6 +884,10 @@ video {
 
 .pt-\[18vh\] {
   padding-top: 18vh;
+}
+
+.pr-1 {
+  padding-right: 0.25rem;
 }
 
 .text-center {

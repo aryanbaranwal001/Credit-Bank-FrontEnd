@@ -122,7 +122,7 @@ export default function SwapComponent() {
             onClick={() => setTokenModalOpen(false)}
           ></div>
 
-          <div className="absolute top-20 w-[90%] max-w-sm max-h-[80vh] overflow-y-auto bg-zinc-900 text-white rounded-2xl p-4 z-50 shadow-lg">
+          <div className="absolute top-20 w-[90%] max-w-sm bg-zinc-900 text-white rounded-2xl p-4 z-50 shadow-lg">
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-xl font-semibold">Select a token</h2>
               <button onClick={() => setTokenModalOpen(false)}>
@@ -140,7 +140,8 @@ export default function SwapComponent() {
               Tokens by 24H volume
             </div>
 
-            <ul className="space-y-3">
+            {/* Scroll area styled */}
+            <ul className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">
               {TOKENS.map((token, idx) => (
                 <li
                   key={idx}
