@@ -15,3 +15,20 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #6b7280; /* Tailwind zinc-500 */
 }
+
+
+  /* Hide native date input calendar icon */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    display: none;
+  }
+
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-clear-button {
+    display: none;
+  }
+
+  /* Optional: on focus, change border or background */
+  input[type="date"]:focus {
+    border-color: white;
+  }
