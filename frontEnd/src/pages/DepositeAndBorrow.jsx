@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, X, MoveRight } from "lucide-react";
 
 const TOKENS = [
   { name: "USDC", symbol: "USDC", address: "0xA0b8...eB48" },
@@ -125,7 +125,7 @@ export default function SwapComponent() {
               popperPlacement="top-center" // 👈 Pops above the input
               className="bg-transparent text-xl text-gray-300 text-center outline-none w-36 border-b border-zinc-700 focus:border-white placeholder-gray-500"
             />
-
+            <MoveRight className="text-xl text-zinc-500 font-normal select-none" />              
             <DatePicker
               selected={endDate}
               onChange={(date) => setEndDate(date)}
