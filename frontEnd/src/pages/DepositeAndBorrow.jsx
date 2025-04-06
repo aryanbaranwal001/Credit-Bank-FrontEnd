@@ -18,6 +18,8 @@ const TOKENS = [
   { name: "Dai", symbol: "DAI", address: "0x6B175...4dd1" },
 ];
 export default function SwapComponent() {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
@@ -51,6 +53,10 @@ export default function SwapComponent() {
 
   return (
     <div className="relative min-h-screen bg-black text-white flex justify-center p-4">
+      {isCalendarOpen && (
+  <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-10 transition-opacity duration-300"></div>
+)}
+
       <div className="pt-[18vh] w-full max-w-md rounded-xl shadow-xl">
         {/* Tabs */}
         <div className="flex space-x-2 mb-2">
@@ -117,23 +123,34 @@ export default function SwapComponent() {
           <div className="text-base text-zinc-400 mb-4">
             Repayment will be done around
           </div>
-          <div className="flex items-center justify-center space-x-4">
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              placeholderText="Start Date"
-              popperPlacement="top-center" // 👈 Pops above the input
-              className="bg-transparent text-xl text-gray-300 text-center outline-none w-36 border-b border-zinc-700 focus:border-white placeholder-gray-500"
-            />
-            <MoveRight className="text-xl text-zinc-500 font-normal select-none" />              
-            <DatePicker
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              placeholderText="End Date"
-              popperPlacement="top-center" // 👈 Pops above the input
-              className="bg-transparent text-xl text-gray-300 text-center outline-none w-36 border-b border-zinc-700 focus:border-white placeholder-gray-500"
-            />
-          </div>
+          <div className="relative z-20">
+  <div className="flex items-center justify-center space-x-4">
+    <DatePicker
+      selected={startDate}
+      onChange={(date) => setStartDate(date)}
+      onCalendarOpen={() => setIsCalendarOpen(true)}
+      onCalendarClose={() => setIsCalendarOpen(false)}
+      placeholderText="Start Date"
+      popperPlacement="top-center"
+      popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
+      className="bg-transparent text-xl text-gray-300 text-center outline-none w-36  placeholder-gray-500"
+    />
+
+    <MoveRight className="text-xl text-zinc-500 font-normal select-none" />
+
+    <DatePicker
+      selected={endDate}
+      onChange={(date) => setEndDate(date)}
+      onCalendarOpen={() => setIsCalendarOpen(true)}
+      onCalendarClose={() => setIsCalendarOpen(false)}
+      placeholderText="End Date"
+      popperPlacement="top-center"
+      popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
+      className="bg-transparent text-xl text-gray-300 text-center outline-none w-36  placeholder-gray-500"
+    />
+  </div>
+</div>
+
         </div>
 
         {/* Select Token Button */}
