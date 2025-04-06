@@ -54,8 +54,8 @@ export default function SwapComponent() {
   return (
     <div className="relative min-h-screen bg-black text-white flex justify-center p-4">
       {isCalendarOpen && (
-  <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-10 transition-opacity duration-300"></div>
-)}
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-10 transition-opacity duration-300"></div>
+      )}
 
       <div className="pt-[18vh] w-full max-w-md rounded-xl shadow-xl">
         {/* Tabs */}
@@ -64,7 +64,7 @@ export default function SwapComponent() {
             <button
               key={tab}
               onClick={() => setSelectedTab(tab)}
-              className={`rounded-full px-4 py-1.5 text-base font-bold transition-colors ${
+              className={`rounded-full px-3.5 py-1 text-[95%] font-bold transition-colors ${
                 selectedTab === tab
                   ? "bg-gray-800 text-white"
                   : "bg-black text-zinc-400 hover:text-white"
@@ -76,8 +76,8 @@ export default function SwapComponent() {
         </div>
 
         {/* Sell */}
-        <div className="bg-zinc-900 p-4 rounded-xl">
-          <div className="text-base text-zinc-400 mb-2">Sell</div>
+        <div className="bg-zinc-900 px-3 py-2 rounded-lg">
+          <div className="text-base text-zinc-400 mb-1">Sell</div>
           <div className="flex items-center justify-between">
             <input
               type="number"
@@ -87,74 +87,75 @@ export default function SwapComponent() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => openModalFor("sell")}
-                className="bg-zinc-800 text-white px-3 py-2 rounded-xl flex items-center space-x-1"
+                className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
               >
-                <span className="text-base">{selectedSellToken.symbol}</span>
-                <ChevronDown className="w-5 h-5" />
+                <span className="text-sm whitespace-nowrap">{selectedSellToken.symbol}</span>
+                <ChevronDown className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <div className="text-sm text-zinc-500 mt-2">$0</div>
+          <div className="text-md text-zinc-500 mt-2">$0</div>
         </div>
 
         {/* Buy */}
-        <div className="bg-zinc-900 p-4 rounded-xl mt-4">
-          <div className="text-base text-zinc-400 mb-2">Buy</div>
+        <div className="bg-zinc-900 px-3 py-2 rounded-xl mt-2">
+          <div className="text-base text-zinc-400 mb-1">Buy</div>
           <div className="flex items-center justify-between">
-            <p className="bg-transparent text-3xl outline-none w-full text-gray-400">
-              0
-            </p>
+          <input
+              type="number"
+              placeholder="0"
+              className="bg-transparent text-3xl outline-none w-full"
+            />
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => openModalFor("buy")}
-                className="bg-zinc-800 text-white px-3 py-2 rounded-xl flex items-center space-x-1"
+                className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
               >
-                <span className="text-base whitespace-nowrap">
+                <span className="text-sm whitespace-nowrap">
                   {selectedBuyToken.symbol}
                 </span>
-                <ChevronDown className="w-5 h-5" />
+                <ChevronDown className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <div className="text-sm text-zinc-500 mt-2">$0</div>
+          <div className="text-md text-zinc-500 mt-2">$0</div>
         </div>
 
-        <div className="bg-zinc-900 p-4 rounded-xl mt-4 pb-6">
+        <div className="bg-zinc-900 p-4 rounded-xl mt-2 pb-6">
           <div className="text-base text-zinc-400 mb-4">
             Repayment will be done around
           </div>
           <div className="relative z-20">
-  <div className="flex items-center justify-center space-x-4">
-    <DatePicker
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}
-      onCalendarOpen={() => setIsCalendarOpen(true)}
-      onCalendarClose={() => setIsCalendarOpen(false)}
-      placeholderText="Start Date"
-      popperPlacement="top-center"
-      popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
-      className="bg-transparent text-xl text-gray-300 text-center outline-none w-36  placeholder-gray-500"
-    />
+            <div className="flex items-center justify-center space-x-4">
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                onCalendarOpen={() => setIsCalendarOpen(true)}
+                onCalendarClose={() => setIsCalendarOpen(false)}
+                placeholderText="Start Date"
+                popperPlacement="top-center"
+                popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
+                className="bg-transparent text-xl text-gray-300 text-center outline-none w-36  placeholder-gray-500"
+              />
 
-    <MoveRight className="text-xl text-zinc-500 font-normal select-none" />
+              <MoveRight className="text-xl text-zinc-500 font-normal select-none" />
 
-    <DatePicker
-      selected={endDate}
-      onChange={(date) => setEndDate(date)}
-      onCalendarOpen={() => setIsCalendarOpen(true)}
-      onCalendarClose={() => setIsCalendarOpen(false)}
-      placeholderText="End Date"
-      popperPlacement="top-center"
-      popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
-      className="bg-transparent text-xl text-gray-300 text-center outline-none w-36  placeholder-gray-500"
-    />
-  </div>
-</div>
-
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                onCalendarOpen={() => setIsCalendarOpen(true)}
+                onCalendarClose={() => setIsCalendarOpen(false)}
+                placeholderText="End Date"
+                popperPlacement="top-center"
+                popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
+                className="bg-transparent text-xl text-gray-300 text-center outline-none w-36  placeholder-gray-500"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Select Token Button */}
-        <button className="w-full mt-3 bg-zinc-800 rounded-xl py-3 text-center cursor-pointer hover:bg-zinc-700 text-gray-400 hover:text-gray-200 font-semibold">
+        <button className="w-full mt-2 bg-zinc-800 rounded-xl py-3 text-center cursor-pointer hover:bg-zinc-700 text-gray-400 hover:text-gray-200 font-semibold">
           Select a token
         </button>
       </div>
