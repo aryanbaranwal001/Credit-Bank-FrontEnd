@@ -8,10 +8,13 @@ const TOKENS = [
   { name: "Base ETH", symbol: "ETH" },
   { name: "Wrapped Bitcoin", symbol: "WBTC", address: "0x2260...C599" },
   { name: "USD Coin", symbol: "USDC", address: "0xaf88...5831" },
-  { name: "USDC", symbol: "USDC", address: "0x8335...2913" },
-  { name: "USDT0", symbol: "USDT", address: "0xFd08...Cbb9" },
+  { name: "Chainlink", symbol: "LINK", address: "0x514910...EE4E" },
+  { name: "Uniswap", symbol: "UNI", address: "0x1f9840...BABE" },
+  { name: "Aave", symbol: "AAVE", address: "0x7Fc66...C9A0" },
+  { name: "Polygon", symbol: "MATIC", address: "0x7D1A...A4C2" },
+  { name: "Compound", symbol: "COMP", address: "0xc00e...E4B8" },
+  { name: "Dai", symbol: "DAI", address: "0x6B175...4dd1" }
 ];
-
 export default function SwapComponent() {
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState("Borrow");
@@ -46,12 +49,12 @@ export default function SwapComponent() {
     <div className="relative min-h-screen bg-black text-white flex justify-center p-4">
       <div className="pt-[18vh] w-full max-w-md rounded-xl shadow-xl">
         {/* Tabs */}
-        <div className="flex space-x-2 mb-6">
+        <div className="flex space-x-2 mb-2">
           {["Borrow", "Repay", "History"].map((tab) => (
             <button
               key={tab}
               onClick={() => setSelectedTab(tab)}
-              className={`rounded-full px-4 py-2 text-base font-bold transition-colors ${
+              className={`rounded-full px-4 py-1.5 text-base font-bold transition-colors ${
                 selectedTab === tab
                   ? "bg-gray-800 text-white"
                   : "bg-black text-zinc-400 hover:text-white"
@@ -88,11 +91,9 @@ export default function SwapComponent() {
         <div className="bg-zinc-900 p-4 rounded-xl mt-4">
           <div className="text-base text-zinc-400 mb-2">Buy</div>
           <div className="flex items-center justify-between">
-            <input
-              type="number"
-              placeholder="0"
-              className="bg-transparent text-3xl outline-none w-full"
-            />
+            <p
+              className="bg-transparent text-3xl outline-none w-full text-gray-400"
+            >0</p>
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => openModalFor("buy")}
@@ -109,9 +110,9 @@ export default function SwapComponent() {
         </div>
 
         {/* Select Token Button */}
-        <div className="mt-6 bg-zinc-800 rounded-xl py-3 text-center cursor-pointer hover:bg-zinc-700 text-base font-semibold">
+        <button className="w-full mt-3 bg-zinc-800 rounded-xl py-3 text-center cursor-pointer hover:bg-zinc-700 text-gray-400 hover:text-gray-200 font-semibold">
           Select a token
-        </div>
+        </button>
       </div>
 
       {/* Token Modal */}
