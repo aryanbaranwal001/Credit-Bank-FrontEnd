@@ -1,5 +1,5 @@
 import { DepositeAndBorrow } from "./pages"
-
+import './additional.css'
 function App() {
 
   return (
