@@ -15,11 +15,11 @@ const TOKENS = [
   { name: "Aave", symbol: "AAVE", address: "0x7Fc66...C9A0" },
   { name: "Polygon", symbol: "MATIC", address: "0x7D1A...A4C2" },
   { name: "Compound", symbol: "COMP", address: "0xc00e...E4B8" },
-  { name: "Dai", symbol: "DAI", address: "0x6B175...4dd1" }
+  { name: "Dai", symbol: "DAI", address: "0x6B175...4dd1" },
 ];
 export default function SwapComponent() {
   const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);  
+  const [endDate, setEndDate] = useState(null);
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState("Borrow");
 
@@ -95,9 +95,9 @@ export default function SwapComponent() {
         <div className="bg-zinc-900 p-4 rounded-xl mt-4">
           <div className="text-base text-zinc-400 mb-2">Buy</div>
           <div className="flex items-center justify-between">
-            <p
-              className="bg-transparent text-3xl outline-none w-full text-gray-400"
-            >0</p>
+            <p className="bg-transparent text-3xl outline-none w-full text-gray-400">
+              0
+            </p>
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => openModalFor("buy")}
@@ -113,27 +113,28 @@ export default function SwapComponent() {
           <div className="text-sm text-zinc-500 mt-2">$0</div>
         </div>
 
-
         <div className="bg-zinc-900 p-4 rounded-xl mt-4 pb-6">
-      <div className="text-base text-zinc-400 mb-4">Repayment will be done around</div>
-      <div className="flex items-center justify-center space-x-4">
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          placeholderText="Start Date"
-          className="bg-transparent text-xl text-gray-300 text-center outline-none w-36 border-b border-zinc-700 focus:border-white placeholder-gray-500"
-        />
-        <span className="text-xl text-gray-500">-</span>
-        <DatePicker
-          selected={endDate}
-          onChange={(date) => setEndDate(date)}
-          placeholderText="End Date"
-          className="bg-transparent text-xl text-gray-300 text-center outline-none w-36 border-b border-zinc-700 focus:border-white placeholder-gray-500"
-        />
-      </div>
-    </div>
+          <div className="text-base text-zinc-400 mb-4">
+            Repayment will be done around
+          </div>
+          <div className="flex items-center justify-center space-x-4">
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              placeholderText="Start Date"
+              popperPlacement="top-center" // 👈 Pops above the input
+              className="bg-transparent text-xl text-gray-300 text-center outline-none w-36 border-b border-zinc-700 focus:border-white placeholder-gray-500"
+            />
 
-
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              placeholderText="End Date"
+              popperPlacement="top-center" // 👈 Pops above the input
+              className="bg-transparent text-xl text-gray-300 text-center outline-none w-36 border-b border-zinc-700 focus:border-white placeholder-gray-500"
+            />
+          </div>
+        </div>
 
         {/* Select Token Button */}
         <button className="w-full mt-3 bg-zinc-800 rounded-xl py-3 text-center cursor-pointer hover:bg-zinc-700 text-gray-400 hover:text-gray-200 font-semibold">

@@ -32,3 +32,54 @@
   input[type="date"]:focus {
     border-color: white;
   }
+
+
+
+
+  /*Calendar Input*/
+
+
+  .react-datepicker {
+    background-color: #27272a; /* zinc-800 */
+    border: 1px solid #3f3f46; /* zinc-700 */
+    color: #f4f4f5; /* zinc-100 */
+    border-radius: 1rem;
+    font-family: inherit;
+    padding: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+  
+  .react-datepicker__header {
+    background-color: #27272a; /* zinc-800 */
+    border-bottom: 1px solid #3f3f46; /* zinc-700 */
+  }
+  
+  .react-datepicker__current-month,
+  .react-datepicker-time__header,
+  .react-datepicker-year-header {
+    color: #f4f4f5; /* lighter gray */
+    font-weight: 500;
+  }
+  
+  .react-datepicker__day,
+  .react-datepicker__day-name {
+    color: #d4d4d8; /* zinc-400 */
+  }
+  
+  .react-datepicker__day--selected,
+  .react-datepicker__day--keyboard-selected {
+    background-color: #52525b; /* zinc-600 */
+    color: white;
+    border-radius: 0.375rem;
+  }
+  
+  .react-datepicker__day--today {
+    color: #eee786; /* cyan-400 */
+    font-weight: bold;
+  }
+  
+  .react-datepicker__navigation-icon::before {
+    border-color: #a1a1aa; /* zinc-400 */
+  }
+  
+
