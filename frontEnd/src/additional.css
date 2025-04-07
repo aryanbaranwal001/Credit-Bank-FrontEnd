@@ -33,8 +33,26 @@
     border-color: white;
   }
 
+  /* custom scrollbar repayment  */
 
-
+  .scrollbar-styled::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scrollbar-styled::-webkit-scrollbar-thumb {
+    background-color: #4b5563; /* Tailwind gray-600 */
+    border-radius: 8px;
+  }
+  
+  .scrollbar-styled::-webkit-scrollbar-track {
+    background-color: #1f2937; /* Tailwind gray-800 */
+  }
+  
+  .scrollbar-styled {
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #1f2937;
+  }
+  
 
   /*Calendar Input*/
 
