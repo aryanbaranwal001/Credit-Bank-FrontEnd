@@ -43,6 +43,47 @@ const RepaymentData = [
     healthFactor: 1.8,
     creditScore: 200,
   },
+  {
+    id: 4,
+    collateral: [
+      { token: "SuperUltraMegaTokenNameThatBreaksUIs", amount: 999999, usd: 9999999 },
+      { token: "🧪WTF", amount: 0.00000001, usd: 0.00001 },
+      { token: "AVAX", amount: 1000000, usd: 100000 },
+      { token: "ZRX", amount: 333333, usd: 50000 },
+      { token: "PEPE", amount: 999999999, usd: 3 },
+      { token: "LONGTOKENNAMEAGAINJUSTTOBREAKIT", amount: 9999, usd: 900000 },
+      { token: "SMOL", amount: 0.0001, usd: 0.00001 },
+    ],
+    totalCollateral: 11000000,
+    borrow: { token: "WEIRDCOIN123", amount: 77777, usd: 987654 },
+    healthFactor: 0.4,
+    creditScore: 50,
+  },
+  {
+    id: 5,
+    collateral: [
+      { token: "USDT", amount: 0, usd: 0 },
+      { token: "USDC", amount: 0, usd: 0 },
+      { token: "DAI", amount: 0, usd: 0 },
+    ],
+    totalCollateral: 0,
+    borrow: { token: "ETH", amount: 0, usd: 0 },
+    healthFactor: 0,
+    creditScore: 0,
+  },
+  {
+    id: 6,
+    collateral: Array.from({ length: 20 }, (_, i) => ({
+      token: `TOKEN${i + 1}`,
+      amount: (i + 1) * 1000,
+      usd: (i + 1) * 500,
+    })),
+    totalCollateral: 105000,
+    borrow: { token: "LOADTEST", amount: 100000, usd: 50000 },
+    healthFactor: 5,
+    creditScore: 850,
+  },
 ];
+
 
 export { TOKENS, RepaymentData };

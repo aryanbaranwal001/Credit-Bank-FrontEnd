@@ -22,12 +22,14 @@ const RepayCard = () => {
   return (
     <div className="h-[85vh] relative text-white bg-black flex flex-col items-center justify-start p-4">
       {/* Fixed Title */}
-      <div className="text-2xl fixed top-[100px] bg-zinc-900 h-16 w-[48%] flex items-center justify-center font-bold z-10">
+      <div className="fixed top-[80px] z-10 w-[48%] rounded-t-2xl bg-zinc-900 shadow-lg">
+      <div className="h-16 flex items-center justify-center text-2xl font-bold border-b border-zinc-700">
         Repayments
       </div>
+    </div>
 
       {/* Scrollable Card Section */}
-      <div className="mt-[23vh] w-full max-w-[50%] overflow-y-auto custom-scrollbar">
+      <div className="mt-[3vh] w-full max-w-[50%] overflow-y-auto custom-scrollbar">
         {RepaymentData.map((item) => (
           <div
             key={item.id}
@@ -70,7 +72,7 @@ const RepayCard = () => {
               </div>
 
               {/* Right - Borrow */}
-              <div>
+              <div className="flex flex-col justify-end">
                 <h2 className="text-lg font-semibold mb-4">Borrow</h2>
                 <div className="text-base">
                   {item.borrow.amount} {item.borrow.token}
