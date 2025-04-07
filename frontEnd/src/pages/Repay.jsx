@@ -20,86 +20,83 @@ const RepayCard = () => {
   };
 
   return (
-    <div className="h-[85vh] relative overflow-y-auto custom-scrollbar p-4 text-white bg-black flex flex-col items-center justify-center">
-      <div className="flex relative items-center justify-center flex-col max-w-[50%] mt-[60vh]">
-        
-        <div className="text-2xl top-[100px] fixed bg-gray-300 h-16 w-full flex items-center justify-center font-bold mb-4 z-10">
-          Repayments
-        </div>
-        
-        <div className="flex flex-col">
-          {RepaymentData.map((item) => (
-            <div
-              key={item.id}
-              className="w-full bg-zinc-900 rounded-2xl p-6 mb-6 shadow-lg border border-zinc-700"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h2 className="text-lg font-semibold mb-4">Collateral</h2>
-                  {item.collateral.map((col, idx) => (
-                    <div key={idx} className="mb-2">
-                      <div className="text-base">
-                        {col.amount} {col.token}
-                      </div>
-                      <div className="text-sm text-zinc-400">${col.usd}</div>
+    <div className="h-[85vh] relative text-white bg-black flex flex-col items-center justify-start p-4">
+      {/* Fixed Title */}
+      <div className="text-2xl fixed top-[100px] bg-zinc-900 h-16 w-[48%] flex items-center justify-center font-bold z-10">
+        Repayments
+      </div>
+
+      {/* Scrollable Card Section */}
+      <div className="mt-[23vh] w-full max-w-[50%] overflow-y-auto custom-scrollbar">
+        {RepaymentData.map((item) => (
+          <div
+            key={item.id}
+            className="w-full bg-zinc-900 rounded-2xl p-6 mb-6 shadow-lg border border-zinc-700"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Left - Collateral */}
+              <div>
+                <h2 className="text-lg font-semibold mb-4">Collateral</h2>
+                {item.collateral.map((col, idx) => (
+                  <div key={idx} className="mb-2">
+                    <div className="text-base">
+                      {col.amount} {col.token}
                     </div>
-                  ))}
-                  <div className="mt-4 p-3 border rounded-xl flex justify-between items-center">
-                    <span className="text-sm">Total Collateral</span>
-                    <span className="text-base font-semibold">
-                      ${item.totalCollateral}
-                    </span>
+                    <div className="text-sm text-zinc-400">${col.usd}</div>
                   </div>
-                  <div className="mt-4 flex gap-2 items-center">
-                    <input
-                      type="number"
-                      className="w-20 px-3 py-2 rounded-xl bg-zinc-800 text-white outline-none"
-                      placeholder="0"
-                    />
-                    <button
-                      onClick={() => setTokenModalOpen(true)}
-                      className="px-3 py-2 bg-zinc-700 rounded-xl"
-                    >
-                      {selectedToken}
-                    </button>
-                  </div>
-                  <button className="mt-3 px-4 py-2 rounded-xl bg-zinc-700">
-                    Add Collateral
+                ))}
+                <div className="mt-4 p-3 border rounded-xl flex justify-between items-center">
+                  <span className="text-sm">Total Collateral</span>
+                  <span className="text-base font-semibold">
+                    ${item.totalCollateral}
+                  </span>
+                </div>
+                <div className="mt-4 flex gap-2 items-center">
+                  <input
+                    type="number"
+                    className="w-20 px-3 py-2 rounded-xl bg-zinc-800 text-white outline-none"
+                    placeholder="0"
+                  />
+                  <button
+                    onClick={() => setTokenModalOpen(true)}
+                    className="px-3 py-2 bg-zinc-700 rounded-xl"
+                  >
+                    {selectedToken}
+                  </button>
+                </div>
+                <button className="mt-3 px-4 py-2 rounded-xl bg-zinc-700">
+                  Add Collateral
+                </button>
+              </div>
+
+              {/* Right - Borrow */}
+              <div>
+                <h2 className="text-lg font-semibold mb-4">Borrow</h2>
+                <div className="text-base">
+                  {item.borrow.amount} {item.borrow.token}
+                </div>
+                <div className="text-sm text-zinc-400">${item.borrow.usd}</div>
+
+                <div className="mt-6">
+                  <label className="block text-sm mb-2">Repay Amount</label>
+                  <input
+                    type="number"
+                    placeholder="0"
+                    className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none"
+                  />
+                  <button className="mt-3 px-4 py-2 rounded-xl bg-zinc-700 w-full">
+                    Repay
                   </button>
                 </div>
 
-                <div>
-                  <h2 className="text-lg font-semibold mb-4">Borrow</h2>
-                  <div className="text-base">
-                    {item.borrow.amount} {item.borrow.token}
-                  </div>
-                  <div className="text-sm text-zinc-400">
-                    ${item.borrow.usd}
-                  </div>
-
-                  <div className="mt-6">
-                    <label className="block text-sm mb-2">Repay Amount</label>
-                    <input
-                      type="number"
-                      placeholder="0"
-                      className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none"
-                    />
-                    <button className="mt-3 px-4 py-2 rounded-xl bg-zinc-700 w-full">
-                      Repay
-                    </button>
-                  </div>
-
-                  <div className="mt-6">
-                    <div className="mb-2">
-                      Health Factor: {item.healthFactor}
-                    </div>
-                    <div>Credit Score: {item.creditScore}</div>
-                  </div>
+                <div className="mt-6">
+                  <div className="mb-2">Health Factor: {item.healthFactor}</div>
+                  <div>Credit Score: {item.creditScore}</div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       {tokenModalOpen && (
