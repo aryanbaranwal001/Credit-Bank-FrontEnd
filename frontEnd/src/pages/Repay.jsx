@@ -27,7 +27,7 @@ const RepayCard = () => {
   };
 
   return (
-    <div className="h-[85vh] relative text-white bg-gradient-to-br from-black via-zinc-900 to-black flex flex-col items-center justify-start p-6">
+    <div className="h-[85vh] relative text-white bg-black flex flex-col items-center justify-start p-6">
       {/* Fixed Header */}
       <div className="fixed top-[80px] z-10 w-[48%] rounded-t-2xl bg-zinc-900 shadow-2xl border-b border-zinc-700">
         <div className="h-16 flex items-center justify-center text-2xl font-bold tracking-wide text-white">
