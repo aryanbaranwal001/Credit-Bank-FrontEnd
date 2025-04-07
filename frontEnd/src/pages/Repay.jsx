@@ -20,80 +20,72 @@ const RepayCard = () => {
   };
 
   return (
-    <div className="h-[85vh] relative text-white bg-black flex flex-col items-center justify-start p-4">
-      {/* Fixed Title */}
-      <div className="fixed top-[80px] z-10 w-[48%] rounded-t-2xl bg-zinc-900 shadow-lg">
-      <div className="h-16 flex items-center justify-center text-2xl font-bold border-b border-zinc-700">
-        Repayments
+    <div className="h-[85vh] relative text-white bg-gradient-to-br from-black via-zinc-900 to-black flex flex-col items-center justify-start p-6">
+      {/* Fixed Header */}
+      <div className="fixed top-[80px] z-10 w-[48%] rounded-t-2xl bg-zinc-900 shadow-2xl border-b border-zinc-700">
+        <div className="h-16 flex items-center justify-center text-2xl font-bold tracking-wide text-white">
+          Repayments
+        </div>
       </div>
-    </div>
 
-      {/* Scrollable Card Section */}
+      {/* Scrollable Content */}
       <div className="mt-[3vh] w-full max-w-[50%] overflow-y-auto custom-scrollbar">
         {RepaymentData.map((item) => (
           <div
             key={item.id}
-            className="w-full bg-zinc-900 rounded-2xl p-6 mb-6 shadow-lg border border-zinc-700"
+            className="bg-zinc-900 rounded-2xl p-6 mb-8 shadow-xl border border-zinc-700 transition-transform duration-300"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Left - Collateral */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Collateral Section */}
               <div>
-                <h2 className="text-lg font-semibold mb-4">Collateral</h2>
+                <h2 className="text-lg font-semibold mb-4 text-zinc-100">Collateral</h2>
                 {item.collateral.map((col, idx) => (
                   <div key={idx} className="mb-2">
-                    <div className="text-base">
-                      {col.amount} {col.token}
-                    </div>
+                    <div className="text-base font-medium">{col.amount} {col.token}</div>
                     <div className="text-sm text-zinc-400">${col.usd}</div>
                   </div>
                 ))}
-                <div className="mt-4 p-3 border rounded-xl flex justify-between items-center">
+                <div className="mt-4 p-3 bg-zinc-800 border border-zinc-700 rounded-xl flex justify-between items-center">
                   <span className="text-sm">Total Collateral</span>
-                  <span className="text-base font-semibold">
-                    ${item.totalCollateral}
-                  </span>
+                  <span className="text-base font-semibold text-green-400">${item.totalCollateral}</span>
                 </div>
-                <div className="mt-4 flex gap-2 items-center">
+                <div className="mt-4 flex gap-3 items-center">
                   <input
                     type="number"
-                    className="w-20 px-3 py-2 rounded-xl bg-zinc-800 text-white outline-none"
+                    className="w-24 px-3 py-2 rounded-xl bg-zinc-800 text-white outline-none border border-zinc-700 focus:ring-2 focus:ring-zinc-600"
                     placeholder="0"
                   />
                   <button
                     onClick={() => setTokenModalOpen(true)}
-                    className="px-3 py-2 bg-zinc-700 rounded-xl"
+                    className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 transition rounded-xl"
                   >
                     {selectedToken}
                   </button>
                 </div>
-                <button className="mt-3 px-4 py-2 rounded-xl bg-zinc-700">
+                <button className="mt-4 px-4 py-2 rounded-xl bg-zinc-700 hover:bg-zinc-600 transition w-full">
                   Add Collateral
                 </button>
               </div>
 
-              {/* Right - Borrow */}
+              {/* Borrow Section */}
               <div className="flex flex-col justify-end">
-                <h2 className="text-lg font-semibold mb-4">Borrow</h2>
-                <div className="text-base">
-                  {item.borrow.amount} {item.borrow.token}
-                </div>
-                <div className="text-sm text-zinc-400">${item.borrow.usd}</div>
+                <h2 className="text-lg font-semibold mb-4 text-zinc-100">Borrow</h2>
+                <div className="text-base font-medium">{item.borrow.amount} {item.borrow.token}</div>
+                <div className="text-sm text-zinc-400 mb-4">${item.borrow.usd}</div>
+
+                <label className="block text-sm mb-2">Repay Amount</label>
+                <input
+                  type="number"
+                  placeholder="0"
+                  className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none border border-zinc-700 focus:ring-2 focus:ring-zinc-600"
+                />
+                <button className="mt-3 px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 transition w-full font-semibold">
+                  Repay
+                </button>
 
                 <div className="mt-6">
-                  <label className="block text-sm mb-2">Repay Amount</label>
-                  <input
-                    type="number"
-                    placeholder="0"
-                    className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none"
-                  />
-                  <button className="mt-3 px-4 py-2 rounded-xl bg-zinc-700 w-full">
-                    Repay
-                  </button>
-                </div>
-
-                <div className="mt-6">
-                  <div className="mb-2">Health Factor: {item.healthFactor}</div>
-                  <div>Credit Score: {item.creditScore}</div>
+                  <div className="mb-1">Health Factor: <span className="text-yellow-400">{item.healthFactor}</span></div>
+                  <div>Credit Score: <span className="text-blue-400">{item.creditScore}</span></div>
                 </div>
               </div>
             </div>
@@ -101,14 +93,15 @@ const RepayCard = () => {
         ))}
       </div>
 
+      {/* Token Modal */}
       {tokenModalOpen && (
         <>
           <div
-            className="absolute w-full inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-50"
+            className="absolute w-full inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
             onClick={() => setTokenModalOpen(false)}
           ></div>
 
-          <div className="absolute top-20 w-[90%] max-w-sm bg-zinc-900 text-white rounded-2xl p-4 z-50 shadow-lg left-1/2 -translate-x-1/2">
+          <div className="absolute top-24 w-[90%] max-w-sm bg-zinc-900 text-white rounded-2xl p-5 z-50 shadow-2xl left-1/2 -translate-x-1/2">
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-xl font-semibold">Select a token</h2>
               <button onClick={() => setTokenModalOpen(false)}>
@@ -119,18 +112,16 @@ const RepayCard = () => {
             <input
               type="text"
               placeholder="Search tokens"
-              className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-base text-white outline-none mb-5"
+              className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none mb-5 border border-zinc-700"
             />
 
-            <div className="text-sm text-zinc-400 mb-3">
-              Tokens by 24H volume
-            </div>
+            <div className="text-sm text-zinc-400 mb-3">Tokens by 24H volume</div>
 
             <ul className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">
               {TOKENS.map((token, idx) => (
                 <li
                   key={idx}
-                  className="flex items-center justify-between p-3 hover:bg-zinc-800 rounded-lg cursor-pointer"
+                  className="flex items-center justify-between p-3 hover:bg-zinc-800 rounded-lg cursor-pointer transition"
                   onClick={() => handleSelectToken(token)}
                 >
                   <div>

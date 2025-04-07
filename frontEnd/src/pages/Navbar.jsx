@@ -36,7 +36,7 @@ const Navbar = () => {
               >
                 Repay
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="/history"
                 className={({ isActive }) =>
                   isActive
@@ -45,7 +45,7 @@ const Navbar = () => {
                 }
               >
                 History
-              </NavLink>
+              </NavLink> */}
             </div>
 
             {/* Right - App Button */}
@@ -62,7 +62,7 @@ const Navbar = () => {
           <Routes>
             <Route path="/borrow" element={<Borrow />} />
             <Route path="/repay" element={<Repay />} />
-            <Route path="/history" element={<History />} />
+            {/* <Route path="/history" element={<History />} /> */}
           </Routes>
         </div>
       </div>
