@@ -2,21 +2,9 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ChevronDown, X, MoveRight } from "lucide-react";
+import {TOKENS} from "../data.js"
 
-const TOKENS = [
-  { name: "USDC", symbol: "USDC", address: "0xA0b8...eB48" },
-  { name: "Ethereum", symbol: "ETH" },
-  { name: "Tether", symbol: "USDT", address: "0xdAC1...1ec7" },
-  { name: "Base ETH", symbol: "ETH" },
-  { name: "Wrapped Bitcoin", symbol: "WBTC", address: "0x2260...C599" },
-  { name: "USD Coin", symbol: "USDC", address: "0xaf88...5831" },
-  { name: "Chainlink", symbol: "LINK", address: "0x514910...EE4E" },
-  { name: "Uniswap", symbol: "UNI", address: "0x1f9840...BABE" },
-  { name: "Aave", symbol: "AAVE", address: "0x7Fc66...C9A0" },
-  { name: "Polygon", symbol: "MATIC", address: "0x7D1A...A4C2" },
-  { name: "Compound", symbol: "COMP", address: "0xc00e...E4B8" },
-  { name: "Dai", symbol: "DAI", address: "0x6B175...4dd1" },
-];
+
 
 export default function Borrow() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -30,6 +18,7 @@ export default function Borrow() {
       id: Date.now(),
       token: { name: "Ethereum", symbol: "ETH" },
       amount: "",
+      img: null,
     },
   ]);
 
@@ -106,11 +95,15 @@ export default function Borrow() {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => openModalFor("sell", sell.id)}
-                    className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
+                    className="gap-1 bg-zinc-800 text-white px-3 py-3 rounded-2xl flex flex-row items-center justify-end space-x-1"
                   >
-                    <span className="text-sm whitespace-nowrap">
-                      {sell.token.symbol}
-                    </span>
+                    {/* <div className="flex "> */}
+                      <img className="ml-5 w-8 h-8" src={`${sell.token.img}`} alt={`${sell.token.symbol}`} />
+                      <span className="text-sm whitespace-nowrap">
+                        {sell.token.symbol} 
+                      </span>
+
+                    {/* </div> */}
                     <ChevronDown className="w-4 h-4" />
                   </button>
                 </div>
@@ -218,22 +211,14 @@ export default function Borrow() {
           ></div>
 
           <div className="absolute top-20 w-[90%] max-w-sm bg-zinc-900 text-white rounded-2xl p-4 z-50 shadow-lg">
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-5 border-b-2 border-zinc-800 pb-2">
               <h2 className="text-xl font-semibold">Select a token</h2>
               <button onClick={() => setTokenModalOpen(false)}>
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <input
-              type="text"
-              placeholder="Search tokens"
-              className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-base text-white outline-none mb-5"
-            />
 
-            <div className="text-sm text-zinc-400 mb-3">
-              Tokens by 24H volume
-            </div>
 
             {/* Scroll area styled */}
             <ul className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">
@@ -243,10 +228,13 @@ export default function Borrow() {
                   className="flex items-center justify-between p-3 hover:bg-zinc-800 rounded-lg cursor-pointer"
                   onClick={() => handleSelectToken(token)}
                 >
-                  <div>
-                    <div className="text-base font-semibold">{token.name}</div>
-                    <div className="text-sm text-zinc-400">
-                      {token.symbol} {token.address && ` ${token.address}`}
+                  <div className="flex flex-row items-center gap-3">
+                    <img className="size-[15%]" src={`${token.img}`} alt={`${token.symbol}`} />
+                    <div>
+                      <div className="text-base font-semibold">{token.name}</div>
+                      <div className="text-sm text-zinc-400">
+                        {token.symbol}<span className="text-gray-500 ml-1">{token.address && ` ${token.address}`}</span>
+                      </div>
                     </div>
                   </div>
                 </li>
