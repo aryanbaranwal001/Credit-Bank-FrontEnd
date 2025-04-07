@@ -17,7 +17,7 @@ const TOKENS = [
   { name: "Compound", symbol: "COMP", address: "0xc00e...E4B8" },
   { name: "Dai", symbol: "DAI", address: "0x6B175...4dd1" },
 ];
-export default function SwapComponent() {
+export default function DepositeAndBorrow() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const [startDate, setStartDate] = useState(null);

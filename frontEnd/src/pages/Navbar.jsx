@@ -1,10 +1,14 @@
 import { NavLink } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Borrow from "./Borrow.jsx";
+import  History from "./History.jsx";
+import  Repay from "./Repay.jsx";
 
 const Navbar = () => {
   return (
     <>
       <div className="relative min-h-screen bg-black text-white flex justify-center p-4 box-border">
-        <nav className="absolute top-0 w-full bg-transparent text-white px-8 pt-7 ">
+        <nav className="fixed top-0 w-full bg-black text-white px-8 py-5 border-b border-zinc-800">
           <div className="max-w-7xl mx-auto flex items-center justify-between relative">
             <div className="absolute left-0 flex items-center gap-2">
               <span className="font-semibold text-lg">Wind</span>
@@ -13,31 +17,31 @@ const Navbar = () => {
             {/* Center - Links */}
             <div className="mx-auto flex gap-8 text-md font-bold">
               <NavLink
-                to="/markets"
+                to="/borrow"
                 className={({ isActive }) =>
                   isActive
                     ? "text-pink-400 transition"
-                    : "text-zinc-300 hover:text-pink-400 transition"
+                    : "text-zinc-400 hover:text-pink-400 transition"
                 }
               >
                 Borrow
               </NavLink>
               <NavLink
-                to="/governance"
+                to="/repay"
                 className={({ isActive }) =>
                   isActive
                     ? "text-pink-400 transition"
-                    : "text-zinc-300 hover:text-pink-400 transition"
+                    : "text-zinc-400 hover:text-pink-400 transition"
                 }
               >
                 Repay
               </NavLink>
               <NavLink
-                to="/docs"
+                to="/history"
                 className={({ isActive }) =>
                   isActive
                     ? "text-pink-400 transition"
-                    : "text-zinc-300 hover:text-pink-400 transition"
+                    : "text-zinc-400 hover:text-pink-400 transition"
                 }
               >
                 History
@@ -46,12 +50,21 @@ const Navbar = () => {
 
             {/* Right - App Button */}
             <div className="absolute right-0">
-              <button className="hover:bg-pin-800 text-white border border-zinc-700 px-5 py-1.5 rounded-full bg-zinc-700 transition">
-                App
+              <button className="text-pink-500 font-semibold px-6 py-2 rounded-xl bg-gray-900 hover:bg-gray-800  transition duration-200">
+                Connect
               </button>
             </div>
           </div>
         </nav>
+
+        {/* Content */}
+        <div className="w-full h-[94vh] bg-black">
+          <Routes>
+            <Route path="/borrow" element={<Borrow />} />
+            <Route path="/repay" element={<Repay />} />
+            <Route path="/history" element={<History />} />
+          </Routes>
+        </div>
       </div>
     </>
   );
