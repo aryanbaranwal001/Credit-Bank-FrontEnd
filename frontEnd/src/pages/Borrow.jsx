@@ -81,63 +81,68 @@ export default function Borrow() {
       )}
 
       <div className="pt-[8vh] w-full max-w-md rounded-xl shadow-xl">
-
         {/* SELL SECTIONS */}
         {sellTokens.map((sell, idx) => (
-          <div
-            key={sell.id}
-            className="bg-zinc-900 px-3 py-2 rounded-lg mb-2 relative"
-          >
-            <div className="text-base text-zinc-400 mb-1">Sell</div>
-            <div className="flex items-center justify-between">
-              <input
-                type="number"
-                placeholder="0"
-                value={sell.amount}
-                onChange={(e) =>
-                  setSellTokens((prev) =>
-                    prev.map((item) =>
-                      item.id === sell.id
-                        ? { ...item, amount: e.target.value }
-                        : item
+          <div key={sell.id} className="relative mb-2">
+            {/* Sell Section */}
+            <div className="bg-zinc-900 px-3 py-2 rounded-lg">
+              <div className="text-base text-zinc-400 mb-1">Sell</div>
+              <div className="flex items-center justify-between">
+                <input
+                  type="number"
+                  placeholder="0"
+                  value={sell.amount}
+                  onChange={(e) =>
+                    setSellTokens((prev) =>
+                      prev.map((item) =>
+                        item.id === sell.id
+                          ? { ...item, amount: e.target.value }
+                          : item
+                      )
                     )
-                  )
-                }
-                className="bg-transparent text-3xl outline-none w-full"
-              />
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => openModalFor("sell", sell.id)}
-                  className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
-                >
-                  <span className="text-sm whitespace-nowrap">
-                    {sell.token.symbol}
-                  </span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
+                  }
+                  className="bg-transparent text-3xl outline-none w-full"
+                />
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => openModalFor("sell", sell.id)}
+                    className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
+                  >
+                    <span className="text-sm whitespace-nowrap">
+                      {sell.token.symbol}
+                    </span>
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
+              <div className="text-md text-zinc-500 mt-2">$0</div>
             </div>
-            <div className="text-md text-zinc-500 mt-2">$0</div>
 
-            {/* Show minus icon for all except the first one */}
+            {/* Minus button - only if not the first sell */}
             {idx > 0 && (
               <button
                 onClick={() => removeSellSection(sell.id)}
-                className="absolute top-2 right-2 text-zinc-400 hover:text-red-500"
+                className={`absolute top-1/2 ${idx === sellTokens.length - 1 ? "-translate-y-[120%]" : "-translate-y-1/2"} -translate-y-1/2 translate-x-1 -right-8 w-7 h-7 rounded-full bg-gray-800 text-white text-lg flex items-center justify-center hover:bg-zinc-800`}
+                title="Remove this token"
               >
-                <X className="w-4 h-4" />
+                −
               </button>
+            )}
+
+            {/* Plus button - only between sections */}
+            {idx === sellTokens.length - 1 && (
+              <div className="flex justify-center my-2">
+                <button
+                  onClick={addSellSection}
+                  className="w-8 h-8 rounded-full bg-gray-800 text-white text-lg flex items-center justify-center hover:bg-zinc-800"
+                  title="Add another sell token"
+                >
+                  +
+                </button>
+              </div>
             )}
           </div>
         ))}
-
-        {/* Plus Button */}
-        <button
-          onClick={addSellSection}
-          className="w-full bg-zinc-800 rounded-xl py-2 mb-3 hover:bg-zinc-700 text-white"
-        >
-          + Add Token to Sell
-        </button>
 
         {/* BUY SECTION + CALENDAR remain unchanged below */}
 
@@ -145,7 +150,7 @@ export default function Borrow() {
         <div className="bg-zinc-900 px-3 py-2 rounded-xl mt-2">
           <div className="text-base text-zinc-400 mb-1">Buy</div>
           <div className="flex items-center justify-between">
-          <input
+            <input
               type="number"
               placeholder="0"
               className="bg-transparent text-3xl outline-none w-full"
