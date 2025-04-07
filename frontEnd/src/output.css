@@ -635,22 +635,6 @@ video {
   margin-top: 20%;
 }
 
-.mt-\[5\%\] {
-  margin-top: 5%;
-}
-
-.mt-\[10\%\] {
-  margin-top: 10%;
-}
-
-.mt-\[14\%\] {
-  margin-top: 14%;
-}
-
-.mt-\[15\%\] {
-  margin-top: 15%;
-}
-
 .box-border {
   box-sizing: border-box;
 }
@@ -675,6 +659,14 @@ video {
   height: 94vh;
 }
 
+.h-\[90vh\] {
+  height: 90vh;
+}
+
+.h-\[80vh\] {
+  height: 80vh;
+}
+
 .max-h-\[50vh\] {
   max-height: 50vh;
 }
@@ -685,6 +677,10 @@ video {
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-\[94vh\] {
+  min-height: 94vh;
 }
 
 .w-36 {
@@ -917,28 +913,8 @@ video {
   padding-top: 15vh;
 }
 
-.pt-\[10\%\] {
-  padding-top: 10%;
-}
-
-.pt-\[5\%\] {
-  padding-top: 5%;
-}
-
-.pt-\[10vh\] {
-  padding-top: 10vh;
-}
-
 .pt-\[8vh\] {
   padding-top: 8vh;
-}
-
-.pt-\[8\%\] {
-  padding-top: 8%;
-}
-
-.pt-\[6\%\] {
-  padding-top: 6%;
 }
 
 .text-center {
@@ -1140,15 +1116,7 @@ video {
     margin-top: 5%;
   }
 
-  .sm\:flex {
-    display: flex;
-  }
-
   .sm\:flex-row {
     flex-direction: row;
-  }
-
-  .sm\:flex-col {
-    flex-direction: column;
   }
 }

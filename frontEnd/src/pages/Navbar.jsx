@@ -58,7 +58,7 @@ const Navbar = () => {
         </nav>
 
         {/* Content */}
-        <div className="relative w-full h-[94vh] bg-transparent mt-[20%] sm:mt-[5%] z-[1]">
+        <div className="relative w-full h-[80vh] bg-transparent mt-[20%] sm:mt-[5%] z-[1]">
           <Routes>
             <Route path="/borrow" element={<Borrow />} />
             <Route path="/repay" element={<Repay />} />
