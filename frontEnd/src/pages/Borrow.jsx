@@ -20,16 +20,18 @@ const TOKENS = [
 
 export default function Borrow() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState("Borrow");
 
-  const [selectedSellToken, setSelectedSellToken] = useState({
-    name: "Ethereum",
-    symbol: "ETH",
-  });
+  const [sellTokens, setSellTokens] = useState([
+    {
+      id: Date.now(),
+      token: { name: "Ethereum", symbol: "ETH" },
+      amount: "",
+    },
+  ]);
 
   const [selectedBuyToken, setSelectedBuyToken] = useState({
     name: "USDC",
@@ -37,51 +39,107 @@ export default function Borrow() {
   });
 
   const [tokenModalType, setTokenModalType] = useState("sell");
+  const [activeSellId, setActiveSellId] = useState(null); // for selecting token for a specific sell section
 
-  const openModalFor = (type) => {
+  const openModalFor = (type, id = null) => {
     setTokenModalType(type);
+    setActiveSellId(id);
     setTokenModalOpen(true);
   };
 
   const handleSelectToken = (token) => {
     if (tokenModalType === "sell") {
-      setSelectedSellToken(token);
+      setSellTokens((prev) =>
+        prev.map((item) =>
+          item.id === activeSellId ? { ...item, token } : item
+        )
+      );
     } else {
       setSelectedBuyToken(token);
     }
     setTokenModalOpen(false);
   };
 
+  const addSellSection = () => {
+    const newSell = {
+      id: Date.now(),
+      token: { name: "Ethereum", symbol: "ETH" },
+      amount: "",
+    };
+    setSellTokens([...sellTokens, newSell]);
+  };
+
+  const removeSellSection = (id) => {
+    setSellTokens((prev) => prev.filter((item) => item.id !== id));
+  };
+
   return (
     <div className="relative min-h-full bg-black text-white flex justify-center p-4">
+      {/* Calendar overlay */}
       {isCalendarOpen && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-10 transition-opacity duration-300"></div>
       )}
 
       <div className="pt-[8vh] w-full max-w-md rounded-xl shadow-xl">
 
-
-        {/* Sell */}
-        <div className="bg-zinc-900 px-3 py-2 rounded-lg">
-          <div className="text-base text-zinc-400 mb-1">Sell</div>
-          <div className="flex items-center justify-between">
-            <input
-              type="number"
-              placeholder="0"
-              className="bg-transparent text-3xl outline-none w-full"
-            />
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => openModalFor("sell")}
-                className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
-              >
-                <span className="text-sm whitespace-nowrap">{selectedSellToken.symbol}</span>
-                <ChevronDown className="w-4 h-4" />
-              </button>
+        {/* SELL SECTIONS */}
+        {sellTokens.map((sell, idx) => (
+          <div
+            key={sell.id}
+            className="bg-zinc-900 px-3 py-2 rounded-lg mb-2 relative"
+          >
+            <div className="text-base text-zinc-400 mb-1">Sell</div>
+            <div className="flex items-center justify-between">
+              <input
+                type="number"
+                placeholder="0"
+                value={sell.amount}
+                onChange={(e) =>
+                  setSellTokens((prev) =>
+                    prev.map((item) =>
+                      item.id === sell.id
+                        ? { ...item, amount: e.target.value }
+                        : item
+                    )
+                  )
+                }
+                className="bg-transparent text-3xl outline-none w-full"
+              />
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => openModalFor("sell", sell.id)}
+                  className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
+                >
+                  <span className="text-sm whitespace-nowrap">
+                    {sell.token.symbol}
+                  </span>
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
             </div>
+            <div className="text-md text-zinc-500 mt-2">$0</div>
+
+            {/* Show minus icon for all except the first one */}
+            {idx > 0 && (
+              <button
+                onClick={() => removeSellSection(sell.id)}
+                className="absolute top-2 right-2 text-zinc-400 hover:text-red-500"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
-          <div className="text-md text-zinc-500 mt-2">$0</div>
-        </div>
+        ))}
+
+        {/* Plus Button */}
+        <button
+          onClick={addSellSection}
+          className="w-full bg-zinc-800 rounded-xl py-2 mb-3 hover:bg-zinc-700 text-white"
+        >
+          + Add Token to Sell
+        </button>
+
+        {/* BUY SECTION + CALENDAR remain unchanged below */}
 
         {/* Buy */}
         <div className="bg-zinc-900 px-3 py-2 rounded-xl mt-2">
