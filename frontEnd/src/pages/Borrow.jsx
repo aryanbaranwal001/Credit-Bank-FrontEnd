@@ -76,7 +76,7 @@ export default function Borrow() {
           <div key={sell.id} className="relative mb-2">
             {/* Sell Section */}
             <div className="bg-zinc-900 px-3 py-2 rounded-lg">
-              <div className="text-base text-zinc-400 mb-1">Sell</div>
+              <div className="text-base text-zinc-400 mb-1">Collateral</div>
               <div className="flex items-center justify-between">
                 <input
                   type="number"
@@ -150,7 +150,7 @@ export default function Borrow() {
 
         {/* Buy */}
         <div className="bg-zinc-900 px-3 py-2 rounded-xl mt-2">
-          <div className="text-base text-zinc-400 mb-1">Buy</div>
+          <div className="text-base text-zinc-400 mb-1">Borrow</div>
           <div className="flex items-center justify-between">
             <input
               type="number"
@@ -178,9 +178,9 @@ export default function Borrow() {
           <div className="text-md text-zinc-500 mt-2">$0</div>
         </div>
 
-        <div className="bg-zinc-900 px-4 py-2 rounded-xl mt-2 pb-4">
-          <div className="text-base text-zinc-400 mb-3">
-            Repayment will be done around
+        <div className="bg-zinc-900 px-4 py-3 rounded-xl mt-3 pb-4">
+          <div className="text-base text-zinc-400 mb-8">
+          Repayment Expected Around
           </div>
           <div className="relative z-20">
             <div className="flex items-center justify-center space-x-4">
@@ -189,6 +189,7 @@ export default function Borrow() {
                 onChange={(date) => setStartDate(date)}
                 onCalendarOpen={() => setIsCalendarOpen(true)}
                 onCalendarClose={() => setIsCalendarOpen(false)}
+                dateFormat="dd MMMM yyyy"
                 placeholderText="Start Date"
                 popperPlacement="top-center"
                 popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
@@ -202,6 +203,7 @@ export default function Borrow() {
                 onChange={(date) => setEndDate(date)}
                 onCalendarOpen={() => setIsCalendarOpen(true)}
                 onCalendarClose={() => setIsCalendarOpen(false)}
+                dateFormat="dd MMMM yyyy"
                 placeholderText="End Date"
                 popperPlacement="top-center"
                 popperClassName="shadow-3xl rounded-xl bg-zinc-900 text-white"
@@ -212,8 +214,8 @@ export default function Borrow() {
         </div>
 
         {/* Select Token Button */}
-        <button className="w-full mt-2 bg-zinc-800 rounded-xl py-3 text-center cursor-pointer hover:bg-zinc-700 text-gray-400 hover:text-gray-200 font-semibold">
-          Select a token
+        <button className="w-full mt-3 bg-zinc-900 rounded-xl py-3 text-center cursor-pointer hover:bg-zinc-800 text-gray-400 hover:text-gray-200 font-semibold">
+          Borrow Token
         </button>
       </div>
 
