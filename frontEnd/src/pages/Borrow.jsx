@@ -17,6 +17,7 @@ const TOKENS = [
   { name: "Compound", symbol: "COMP", address: "0xc00e...E4B8" },
   { name: "Dai", symbol: "DAI", address: "0x6B175...4dd1" },
 ];
+
 export default function Borrow() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
@@ -52,28 +53,13 @@ export default function Borrow() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white flex justify-center p-4">
+    <div className="relative min-h-full bg-black text-white flex justify-center p-4">
       {isCalendarOpen && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-10 transition-opacity duration-300"></div>
       )}
 
-      <div className="pt-[15vh] w-full max-w-md rounded-xl shadow-xl">
-        {/* Tabs */}
-        <div className="flex space-x-2 mb-2">
-          {["Borrow", "Repay", "History"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setSelectedTab(tab)}
-              className={`rounded-full px-3.5 py-1 text-[95%] font-bold transition-colors ${
-                selectedTab === tab
-                  ? "bg-gray-800 text-white"
-                  : "bg-black text-zinc-400 hover:text-white"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+      <div className="pt-[8vh] w-full max-w-md rounded-xl shadow-xl">
+
 
         {/* Sell */}
         <div className="bg-zinc-900 px-3 py-2 rounded-lg">

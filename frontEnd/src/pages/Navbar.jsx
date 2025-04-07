@@ -8,14 +8,14 @@ const Navbar = () => {
   return (
     <>
       <div className="relative min-h-screen bg-black text-white flex justify-center p-4 box-border">
-        <nav className="fixed top-0 w-full bg-black text-white px-8 py-5 border-b border-zinc-800">
+        <nav className="z-[100] fixed top-0 w-full bg-black text-white px-8 py-5 border-b border-zinc-800">
           <div className="max-w-7xl mx-auto flex items-center justify-between relative">
             <div className="absolute left-0 flex items-center gap-2">
               <span className="font-semibold text-lg">Wind</span>
             </div>
 
             {/* Center - Links */}
-            <div className="mx-auto flex gap-8 text-md font-bold">
+            <div className="mx-auto flex flex-col sm:flex-row gap-8 text-md font-bold">
               <NavLink
                 to="/borrow"
                 className={({ isActive }) =>
@@ -58,7 +58,7 @@ const Navbar = () => {
         </nav>
 
         {/* Content */}
-        <div className="w-full h-[94vh] bg-black">
+        <div className="relative w-full h-[94vh] bg-transparent mt-[20%] sm:mt-[5%] z-[1]">
           <Routes>
             <Route path="/borrow" element={<Borrow />} />
             <Route path="/repay" element={<Repay />} />
