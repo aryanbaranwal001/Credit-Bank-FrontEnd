@@ -644,6 +644,21 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.mx-\[-10\%\] {
+  margin-left: -10%;
+  margin-right: -10%;
+}
+
+.mx-\[-3\%\] {
+  margin-left: -3%;
+  margin-right: -3%;
+}
+
+.mx-\[-2\%\] {
+  margin-left: -2%;
+  margin-right: -2%;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -788,6 +803,18 @@ video {
   width: 1.75rem;
 }
 
+.w-\[110\%\] {
+  width: 110%;
+}
+
+.w-\[100\%\] {
+  width: 100%;
+}
+
+.w-\[101\%\] {
+  width: 101%;
+}
+
 .min-w-full {
   min-width: 100%;
 }
@@ -902,6 +929,10 @@ video {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -958,8 +989,16 @@ video {
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.overflow-visible {
+  overflow: visible;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 
 .whitespace-nowrap {

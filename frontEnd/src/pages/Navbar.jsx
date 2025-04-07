@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <>
       <div className="relative min-h-screen bg-black text-white flex justify-center p-4 box-border">
-        <nav className="z-[100] fixed top-0 w-full bg-black text-white px-8 py-5 border-b border-zinc-800">
+        <nav className="z-[100] fixed top-0 w-[101%] bg-black text-white px-8 py-5 border-b border-zinc-800">
           <div className="max-w-7xl mx-auto flex items-center justify-between relative">
             <div className="absolute left-0 flex items-center gap-2">
               <span className="font-semibold text-lg">Wind</span>

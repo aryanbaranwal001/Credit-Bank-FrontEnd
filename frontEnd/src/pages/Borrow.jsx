@@ -74,7 +74,7 @@ export default function Borrow() {
   };
 
   return (
-    <div className="relative min-h-full bg-black text-white flex justify-center p-4">
+    <div className="relative min-h-full mx-[-2%] bg-black text-white flex justify-center p-4">
       {/* Calendar overlay */}
       {isCalendarOpen && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-10 transition-opacity duration-300"></div>
