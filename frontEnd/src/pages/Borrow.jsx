@@ -95,7 +95,7 @@ export default function Borrow() {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => openModalFor("sell", sell.id)}
-                    className="gap-1 bg-zinc-800 text-white px-3 py-3 rounded-2xl flex flex-row items-center justify-end space-x-1"
+                    className="gap-1 bg-zinc-800 text-white px-3 py-2 rounded-3xl flex flex-row items-center justify-end space-x-1"
                   >
                     {/* <div className="flex "> */}
                       <img className="ml-5 w-8 h-8" src={`${sell.token.img}`} alt={`${sell.token.symbol}`} />
@@ -104,7 +104,7 @@ export default function Borrow() {
                       </span>
 
                     {/* </div> */}
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="ml-6 w-4 h-4" />
                   </button>
                 </div>
               </div>
