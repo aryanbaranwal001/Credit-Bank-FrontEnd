@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ChevronDown, X, MoveRight } from "lucide-react";
-import {TOKENS} from "../data.js"
+import { TOKENS } from "../data.js";
 
 
 
@@ -11,21 +11,20 @@ export default function Borrow() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("Borrow");
 
   const [sellTokens, setSellTokens] = useState([
     {
       id: Date.now(),
-      token: { name: "Ethereum", symbol: "ETH" },
+      token: TOKENS[0],
       amount: "",
-      img: null,
+      img: TOKENS[0].img,
     },
   ]);
+  
 
-  const [selectedBuyToken, setSelectedBuyToken] = useState({
-    name: "USDC",
-    symbol: "USDC",
-  });
+
+  const [selectedBuyToken, setSelectedBuyToken] = useState(TOKENS[0]);
+
 
   const [tokenModalType, setTokenModalType] = useState("sell");
   const [activeSellId, setActiveSellId] = useState(null); // for selecting token for a specific sell section
@@ -52,11 +51,13 @@ export default function Borrow() {
   const addSellSection = () => {
     const newSell = {
       id: Date.now(),
-      token: { name: "Ethereum", symbol: "ETH" },
+      token: TOKENS[0],
       amount: "",
+      img: TOKENS[0].img,
     };
-    setSellTokens([...sellTokens, newSell]);
+    setSellTokens((prev) => [...prev, newSell]);
   };
+  
 
   const removeSellSection = (id) => {
     setSellTokens((prev) => prev.filter((item) => item.id !== id));
@@ -98,10 +99,14 @@ export default function Borrow() {
                     className="gap-1 bg-zinc-800 text-white pr-3 rounded-full flex flex-row items-center justify-end space-x-1"
                   >
                     {/* <div className="flex "> */}
-                      <img className="ml-4 w-6 h-6" src={`${sell.token.img}`} alt={`${sell.token.symbol}`} />
-                      <span className="text-sm whitespace-nowrap">
-                        {sell.token.symbol} 
-                      </span>
+                    <img
+                      className="ml-4 w-6 h-6"
+                      src={`${sell.token.img}`}
+                      alt={`${sell.token.symbol}`}
+                    />
+                    <span className="text-sm whitespace-nowrap">
+                      {sell.token.symbol}
+                    </span>
 
                     {/* </div> */}
                     <ChevronDown className="w-12 h-12" />
@@ -115,7 +120,11 @@ export default function Borrow() {
             {idx > 0 && (
               <button
                 onClick={() => removeSellSection(sell.id)}
-                className={`absolute top-1/2 ${idx === sellTokens.length - 1 ? "-translate-y-[120%]" : "-translate-y-1/2"} -translate-y-1/2 translate-x-1 -right-8 w-7 h-7 rounded-full bg-gray-800 text-white text-lg flex items-center justify-center hover:bg-zinc-800`}
+                className={`absolute top-1/2 ${
+                  idx === sellTokens.length - 1
+                    ? "-translate-y-[120%]"
+                    : "-translate-y-1/2"
+                } -translate-y-1/2 translate-x-1 -right-8 w-7 h-7 rounded-full bg-gray-800 text-white text-lg flex items-center justify-center hover:bg-zinc-800`}
                 title="Remove this token"
               >
                 −
@@ -151,12 +160,18 @@ export default function Borrow() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => openModalFor("buy")}
-                className="bg-zinc-800 text-white px-2 py-2 rounded-lg flex items-center space-x-1"
+                className="gap-1 bg-zinc-800 text-white pr-3 rounded-full flex flex-row items-center justify-end space-x-1"
               >
+                <img
+                  className="ml-4 w-6 h-6"
+                  src={`${selectedBuyToken.img}`}
+                  alt={`${selectedBuyToken.symbol}`}
+                />
+
                 <span className="text-sm whitespace-nowrap">
                   {selectedBuyToken.symbol}
                 </span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-12 h-12" />
               </button>
             </div>
           </div>
@@ -218,8 +233,6 @@ export default function Borrow() {
               </button>
             </div>
 
-
-
             {/* Scroll area styled */}
             <ul className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">
               {TOKENS.map((token, idx) => (
@@ -229,11 +242,20 @@ export default function Borrow() {
                   onClick={() => handleSelectToken(token)}
                 >
                   <div className="flex flex-row items-center gap-3">
-                    <img className="size-[15%]" src={`${token.img}`} alt={`${token.symbol}`} />
+                    <img
+                      className="size-[15%]"
+                      src={`${token.img}`}
+                      alt={`${token.symbol}`}
+                    />
                     <div>
-                      <div className="text-base font-semibold">{token.name}</div>
+                      <div className="text-base font-semibold">
+                        {token.name}
+                      </div>
                       <div className="text-sm text-zinc-400">
-                        {token.symbol}<span className="text-gray-500 ml-1">{token.address && ` ${token.address}`}</span>
+                        {token.symbol}
+                        <span className="text-gray-500 ml-1">
+                          {token.address && ` ${token.address}`}
+                        </span>
                       </div>
                     </div>
                   </div>
