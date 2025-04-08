@@ -57,23 +57,35 @@ const RepayCard = () => {
             <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-8">
               {/* Collateral Section */}
               <div>
-                <h2 className="text-lg font-semibold mb-4 text-pink-400">Collateral</h2>
+                <h2 className="text-lg font-semibold mb-4 text-pink-400">
+                  Collateral
+                </h2>
                 {item.collateral.map((col, idx) => (
                   <div key={idx} className="mb-2">
                     <div className="text-base font-medium">
-                      <span className="text-2xl text-pink-200 mr-2">{col.amount}</span>
+                      <span className="text-2xl text-pink-200 mr-2">
+                        {col.amount}
+                      </span>
                       <span className="text-sm text-gray-400">{col.token}</span>
                     </div>
-                    <div className="ml-1 text-sm text-emerald-500">${col.usd}</div>
+                    <div className="ml-1 text-sm text-emerald-500">
+                      ${col.usd}
+                    </div>
                   </div>
                 ))}
 
-                <div className="mt-4 p-3 bg-zinc-800 border border-zinc-700 rounded-xl flex justify-between items-center">
-                  <span className="text-sm text-zinc-300">Total Collateral</span>
-                  <span className="text-base font-semibold text-green-400">
-                    ${item.totalCollateral}
-                  </span>
+                <div className="mt-4 p-4 bg-gradient-to-r from-zinc-800 to-zinc-900 rounded-2xl shadow-inner flex items-center justify-between">
+                  <div>
+                    <div className="text-sm text-zinc-400 uppercase tracking-wide">
+                      Total Collateral
+                    </div>
+                    <div className="text-2xl font-bold text-green-400 mt-1">
+                      ${item.totalCollateral}
+                    </div>
+                  </div>
+
                 </div>
+
 
                 <div className="mt-4 flex gap-3 items-center">
                   <div className="flex bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
@@ -101,11 +113,20 @@ const RepayCard = () => {
 
               {/* Borrow Section */}
               <div className="flex flex-col justify-end">
-                <h2 className="text-lg font-semibold mb-4 text-pink-400">Borrow</h2>
+                <h2 className="text-lg font-semibold mb-4 text-pink-400">
+                  Borrow
+                </h2>
                 <div className="text-base font-medium">
-                  <span className="text-2xl text-pink-200 mr-2">{item.borrow.amount}</span><span className="text-sm text-gray-400">{item.borrow.token}</span> 
+                  <span className="text-2xl text-pink-200 mr-2">
+                    {item.borrow.amount}
+                  </span>
+                  <span className="text-sm text-gray-400">
+                    {item.borrow.token}
+                  </span>
                 </div>
-                <div className="ml-1 text-sm text-emerald-500 mb-4">${item.borrow.usd}</div>
+                <div className="ml-1 text-sm text-emerald-500 mb-4">
+                  ${item.borrow.usd}
+                </div>
 
                 <label className="block text-sm mb-2">Repay Amount</label>
                 <input
@@ -114,7 +135,10 @@ const RepayCard = () => {
                   className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none border border-zinc-700 focus:ring-2 focus:ring-zinc-600"
                   value={repayAmounts[item.id] || ""}
                   onChange={(e) =>
-                    setRepayAmounts((prev) => ({ ...prev, [item.id]: e.target.value }))
+                    setRepayAmounts((prev) => ({
+                      ...prev,
+                      [item.id]: e.target.value,
+                    }))
                   }
                 />
                 <button
@@ -128,10 +152,12 @@ const RepayCard = () => {
               {/* Additional Information */}
               <div className="mt-6">
                 <div className="mb-1">
-                  Health Factor: <span className="text-yellow-400">{item.healthFactor}</span>
+                  Health Factor:{" "}
+                  <span className="text-yellow-400">{item.healthFactor}</span>
                 </div>
                 <div>
-                  Credit Score: <span className="text-blue-400">{item.creditScore}</span>
+                  Credit Score:{" "}
+                  <span className="text-blue-400">{item.creditScore}</span>
                 </div>
               </div>
             </div>
@@ -161,7 +187,9 @@ const RepayCard = () => {
               className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none mb-5 border border-zinc-700"
             />
 
-            <div className="text-sm text-zinc-400 mb-3">Tokens by 24H volume</div>
+            <div className="text-sm text-zinc-400 mb-3">
+              Tokens by 24H volume
+            </div>
 
             <ul className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">
               {TOKENS.map((token, idx) => (
