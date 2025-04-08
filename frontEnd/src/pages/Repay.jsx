@@ -173,16 +173,36 @@ const RepayCard = () => {
                 </button>
               </div>
               {/* Additional Information */}
-              <div className="mt-6">
-                <div className="mb-1">
-                  Health Factor:{" "}
-                  <span className="text-yellow-400">{item.healthFactor}</span>
-                </div>
-                <div>
-                  Credit Score:{" "}
-                  <span className="text-blue-400">{item.creditScore}</span>
-                </div>
-              </div>
+
+              <div className="mt-6 flex justify-center">
+  <div className="flex flex-col items-center gap-6 text-base font-semibold w-full max-w-md px-8 py-4">
+    
+    <div className="flex flex-col items-center gap-2">
+      <span className="text-green-300 text-xl font-bold tracking-wider drop-shadow-[1px_1px_0px_#000]">
+        Health Factor
+      </span>
+      <div className="px-8 py-4 rounded-full bg-green-400 text-white text-3xl font-black shadow-lg">
+        {item.healthFactor}
+      </div>
+    </div>
+
+    <div className="flex flex-col items-center gap-2">
+      <span className="text-blue-300 text-xl font-bold tracking-wider drop-shadow-[1px_1px_0px_#000]">
+        Credit Score
+      </span>
+      <div className="px-8 py-4 rounded-full bg-blue-400 text-white text-3xl font-black shadow-lg">
+        {item.creditScore}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
             </div>
           </div>
         ))}
