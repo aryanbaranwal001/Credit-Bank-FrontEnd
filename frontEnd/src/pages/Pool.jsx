@@ -4,25 +4,25 @@ import { TOKENS } from "../data";
 const pools = [
   {
     id: "DAI/LINK",
-    tvl: "33M",
+    tvl: "$33M",
     tokenA: "DAI",
     tokenB: "LINK",
   },
   {
     id: "LINK/WBTC",
-    tvl: "50M",
+    tvl: "$50M",
     tokenA: "LINK",
     tokenB: "WBTC",
   },
   {
     id: "WBTC/WETH",
-    tvl: "18M",
+    tvl: "$18M",
     tokenA: "WBTC",
     tokenB: "WETH",
   },
   {
     id: "WETH/USDC",
-    tvl: "25M",
+    tvl: "$25M",
     tokenA: "WETH",
     tokenB: "USDC",
   },
@@ -36,7 +36,7 @@ const getTokenImage = (symbol) => {
 
 const PoolCard = ({ pool }) => {
   return (
-    <div className="bg-zinc-900 text-white border border-zinc-700 rounded-2xl p-6 w-full max-w-sm shadow-md">
+    <div className="bg-zinc-900 text-white border border-zinc-700 rounded-2xl p-6 w-full max-w-sm shadow-md max-h-[310px]">
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="text-sm text-zinc-400">POOL</div>
@@ -80,7 +80,7 @@ const PoolCard = ({ pool }) => {
 
 const PoolsGrid = () => {
   return (
-    <div className="p-6 bg-black min-h-screen flex justify-center">
+    <div className="p-6 bg-black h-full flex justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-screen-lg w-full">
         {pools.map((pool) => (
           <PoolCard key={pool.id} pool={pool} />
