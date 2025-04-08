@@ -14,17 +14,6 @@ const TOKENS = [
 
 const RepaymentData = [
   {
-    id: 1,
-    collateral: [
-      { token: "DAI", amount: 1200, usd: 1200 },
-      { token: "USDC", amount: 1500, usd: 1500 },
-    ],
-    totalCollateral: 2700,
-    borrow: { token: "WETH", amount: 0.3, usd: 900 },
-    healthFactor: 3.2,
-    creditScore: 420,
-  },
-  {
     id: 2,
     collateral: [
       { token: "WBTC", amount: 0.1, usd: 7000 },
@@ -34,6 +23,17 @@ const RepaymentData = [
     borrow: { token: "USDC", amount: 2500, usd: 2500 },
     healthFactor: 2.8,
     creditScore: 380,
+  },
+  {
+    id: 1,
+    collateral: [
+      { token: "DAI", amount: 1200, usd: 1200 },
+      { token: "USDC", amount: 1500, usd: 1500 },
+    ],
+    totalCollateral: 2700,
+    borrow: { token: "WETH", amount: 0.3, usd: 900 },
+    healthFactor: 3.2,
+    creditScore: 420,
   },
   {
     id: 3,

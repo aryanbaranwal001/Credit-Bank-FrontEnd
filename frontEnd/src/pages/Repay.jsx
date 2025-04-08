@@ -6,6 +6,7 @@ const RepayCard = () => {
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
   const [selectedTokens, setSelectedTokens] = useState({});
   const [activeTokenCardId, setActiveTokenCardId] = useState(null);
+  const [repayAmounts, setRepayAmounts] = useState({});
 
   const TOKENS = [
     { name: "ETH", symbol: "ETH" },
@@ -23,6 +24,17 @@ const RepayCard = () => {
       }));
       setTokenModalOpen(false);
       setActiveTokenCardId(null);
+    }
+  };
+
+  const handleRepay = (itemId) => {
+    const amount = repayAmounts[itemId];
+    const token = selectedTokens[itemId] || "ETH";
+    if (amount && parseFloat(amount) > 0) {
+      console.log(`Repaying ${amount} ${token} for item ${itemId}`);
+      // Trigger repayment logic here
+    } else {
+      console.warn("Invalid repay amount");
     }
   };
 
@@ -91,17 +103,24 @@ const RepayCard = () => {
               <div className="flex flex-col justify-end">
                 <h2 className="text-lg font-semibold mb-4 text-pink-400">Borrow</h2>
                 <div className="text-base font-medium">
-                  {item.borrow.amount} {item.borrow.token}
+                  <span className="text-2xl text-pink-200 mr-2">{item.borrow.amount}</span><span className="text-sm text-gray-400">{item.borrow.token}</span> 
                 </div>
-                <div className="text-sm text-zinc-400 mb-4">${item.borrow.usd}</div>
+                <div className="ml-1 text-sm text-emerald-500 mb-4">${item.borrow.usd}</div>
 
                 <label className="block text-sm mb-2">Repay Amount</label>
                 <input
                   type="number"
                   placeholder="0"
                   className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none border border-zinc-700 focus:ring-2 focus:ring-zinc-600"
+                  value={repayAmounts[item.id] || ""}
+                  onChange={(e) =>
+                    setRepayAmounts((prev) => ({ ...prev, [item.id]: e.target.value }))
+                  }
                 />
-                <button className="mt-3 px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 transition w-full font-semibold">
+                <button
+                  className="mt-3 px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 transition w-full font-semibold"
+                  onClick={() => handleRepay(item.id)}
+                >
                   Repay
                 </button>
               </div>
