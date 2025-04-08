@@ -116,12 +116,13 @@ const RepayCard = () => {
                         {selectedTokens[item.id]?.symbol ?? "DAI"}
                       </span>
                     </button>
-
                   </div>
-                    <span className="mt-1 pr-2 block text-md text-end text-emerald-300">$0</span>
+                  <span className="mt-1 pr-2 block text-md text-end text-emerald-300">
+                    $0
+                  </span>
                 </div>
 
-                <button className="mt-4 px-4 py-2 min-h-[20px] rounded-xl bg-[#333030c9] hover:bg-[#3d3a3ad2] transition w-full">
+                <button className="mt-4 w-full px-5 py-3 rounded-xl text-xl bg-[#28382c] hover:bg-[#2f4e3ae5] text-emerald-200 hover:text-emerald-300 font-semibold transition-all duration-200 border border-emerald-900/40 shadow-sm">
                   Add Collateral
                 </button>
               </div>
@@ -160,16 +161,17 @@ const RepayCard = () => {
                       [item.id]: e.target.value,
                     }))
                   }
-                  />
-                  <span className="mt-1 pr-2 block text-md text-end text-emerald-300">$0</span>
+                />
+                <span className="mt-1 pr-2 block text-md text-end text-emerald-300">
+                  $0
+                </span>
                 <button
-                  className="mt-3 px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 transition w-full font-semibold"
+                  className="mt-4 w-full px-5 py-3 rounded-xl text-xl bg-[#28382c] hover:bg-[#2f4e3ae5] text-emerald-200 hover:text-emerald-300 font-semibold transition-all duration-200 border border-emerald-900/40 shadow-sm"
                   onClick={() => handleRepay(item.id)}
                 >
                   Repay
                 </button>
               </div>
-
               {/* Additional Information */}
               <div className="mt-6">
                 <div className="mb-1">
