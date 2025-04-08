@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { RepaymentData } from "../data";
 import { X } from "lucide-react";
+import { TOKENS } from "../data";
 
 const RepayCard = () => {
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
   const [selectedTokens, setSelectedTokens] = useState({});
   const [activeTokenCardId, setActiveTokenCardId] = useState(null);
   const [repayAmounts, setRepayAmounts] = useState({});
-
-  const TOKENS = [
-    { name: "ETH", symbol: "ETH" },
-    { name: "USDT", symbol: "USDT" },
-    { name: "weETH", symbol: "weETH" },
-    { name: "BOB", symbol: "BOB" },
-    { name: "DAI", symbol: "DAI" },
-  ];
 
   const handleSelectToken = (token) => {
     if (activeTokenCardId !== null) {
@@ -171,34 +164,40 @@ const RepayCard = () => {
             onClick={() => setTokenModalOpen(false)}
           ></div>
 
-          <div className="absolute top-24 w-[90%] max-w-sm bg-zinc-900 text-white rounded-2xl p-5 z-50 shadow-2xl left-1/2 -translate-x-1/2">
-            <div className="flex items-center justify-between mb-5">
+          <div className="absolute top-20 w-[90%] max-w-sm bg-zinc-900 text-white rounded-2xl p-4 z-50 shadow-lg">
+            <div className="flex items-center justify-between mb-5 border-b-2 border-zinc-800 pb-2">
               <h2 className="text-xl font-semibold">Select a token</h2>
               <button onClick={() => setTokenModalOpen(false)}>
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <input
-              type="text"
-              placeholder="Search tokens"
-              className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none mb-5 border border-zinc-700"
-            />
 
-            <div className="text-sm text-zinc-400 mb-3">
-              Tokens by 24H volume
-            </div>
-
+            {/* Scroll area styled */}
             <ul className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">
               {TOKENS.map((token, idx) => (
                 <li
                   key={idx}
-                  className="flex items-center justify-between p-3 hover:bg-zinc-800 rounded-lg cursor-pointer transition"
+                  className="flex items-center justify-between p-3 hover:bg-zinc-800 rounded-lg cursor-pointer"
                   onClick={() => handleSelectToken(token)}
                 >
-                  <div>
-                    <div className="text-base font-semibold">{token.name}</div>
-                    <div className="text-sm text-zinc-400">{token.symbol}</div>
+                  <div className="flex flex-row items-center gap-3">
+                    <img
+                      className="size-[15%]"
+                      src={`${token.img}`}
+                      alt={`${token.symbol}`}
+                    />
+                    <div>
+                      <div className="text-base font-semibold">
+                        {token.name}
+                      </div>
+                      <div className="text-sm text-zinc-400">
+                        {token.symbol}
+                        <span className="text-gray-500 ml-1">
+                          {token.address && ` ${token.address}`}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </li>
               ))}
