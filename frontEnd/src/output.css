@@ -721,6 +721,10 @@ video {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
 }
@@ -768,6 +772,10 @@ video {
 
 .h-\[85vh\] {
   height: 85vh;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .max-h-\[50vh\] {
@@ -832,6 +840,10 @@ video {
 
 .w-32 {
   width: 8rem;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .min-w-\[90px\] {

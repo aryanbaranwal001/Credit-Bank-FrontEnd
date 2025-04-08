@@ -13,12 +13,18 @@ const RepayCard = () => {
     if (activeTokenCardId !== null) {
       setSelectedTokens((prev) => ({
         ...prev,
-        [activeTokenCardId]: token.name,
+        [activeTokenCardId]: {
+          name: token.name,
+          symbol: token.symbol,
+          img: token.img,
+        },
       }));
       setTokenModalOpen(false);
       setActiveTokenCardId(null);
     }
   };
+
+  console.log("Selected TokenS:", selectedTokens);
 
   const handleRepay = (itemId) => {
     const amount = repayAmounts[itemId];
@@ -90,9 +96,22 @@ const RepayCard = () => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="w-full md:w-auto md:pr-12 lg:pr-8 min-w-[20%] border-b md:border-b-0 md:border-r border-zinc-700 bg-[#3c3c44] hover:bg-[#4b4b52e1] px-4 py-2 text-white transition"
+                      className="w-full flex flex-row items-center  md:w-auto md:pr-12 lg:pr-8 min-w-[20%] border-b md:border-b-0 md:border-r border-zinc-700 bg-[#3c3c44] hover:bg-[#4b4b52e1] px-4 py-2 text-white transition"
                     >
-                      {selectedTokens[item.id] || "DAI"}
+                      {selectedTokens[item.id]?.img ? (
+                        <img
+                          src={selectedTokens[item.id].img}
+                          alt="Token"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      ) : (
+                        <img
+                          src="../../img/dai-modified.png"
+                          alt="Token"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+                      {selectedTokens[item.id]?.symbol ?? "DAI"}
                     </button>
                   </div>
                 </div>
@@ -171,7 +190,6 @@ const RepayCard = () => {
                 <X className="w-5 h-5" />
               </button>
             </div>
-
 
             {/* Scroll area styled */}
             <ul className="space-y-3 max-h-[50vh] overflow-y-auto pr-1 custom-scrollbar">

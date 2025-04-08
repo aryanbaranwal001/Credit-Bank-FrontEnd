@@ -14,7 +14,7 @@ const TOKENS = [
 
 const RepaymentData = [
   {
-    id: 2,
+    id: 1,
     collateral: [
       { token: "WBTC", amount: 0.1, usd: 7000 },
       { token: "LINK", amount: 200, usd: 2800 },
@@ -25,7 +25,7 @@ const RepaymentData = [
     creditScore: 380,
   },
   {
-    id: 1,
+    id: 2,
     collateral: [
       { token: "DAI", amount: 1200, usd: 1200 },
       { token: "USDC", amount: 1500, usd: 1500 },
