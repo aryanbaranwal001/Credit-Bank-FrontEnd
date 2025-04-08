@@ -36,24 +36,24 @@ const RepayCard = () => {
       </div>
 
       {/* Scrollable Content */}
-      <div className="mt-[3vh] w-full max-w-[50%] overflow-y-auto custom-scrollbar">
+      <div className="mt-[7vh] lg:mt-[5vh] xl:mt-[3vh] w-full max-w-[50%] overflow-y-auto custom-scrollbar">
         {RepaymentData.map((item) => (
           <div
             key={item.id}
             className="bg-zinc-900 rounded-2xl p-6 mb-8 shadow-xl border border-zinc-700 transition-transform duration-300"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-8">
               {/* Collateral Section */}
               <div>
-                <h2 className="text-lg font-semibold mb-4 text-zinc-100">
+                <h2 className="text-lg font-semibold mb-4 text-pink-400">
                   Collateral
                 </h2>
                 {item.collateral.map((col, idx) => (
                   <div key={idx} className="mb-2">
                     <div className="text-base font-medium">
-                      {col.amount} {col.token}
+                      <span className="text-2xl text-pink-200 mr-2">{col.amount}</span><span className="text-sm text-gray-400">{col.token}</span> 
                     </div>
-                    <div className="text-sm text-zinc-400">${col.usd}</div>
+                    <div className="ml-1  text-sm text-emerald-500">${col.usd}</div>
                   </div>
                 ))}
                 <div className="mt-4 p-3 bg-zinc-800 border border-zinc-700 rounded-xl flex justify-between items-center">
@@ -85,7 +85,7 @@ const RepayCard = () => {
 
               {/* Borrow Section */}
               <div className="flex flex-col justify-end">
-                <h2 className="text-lg font-semibold mb-4 text-zinc-100">
+                <h2 className="text-lg font-semibold mb-4 text-pink-400">
                   Borrow
                 </h2>
                 <div className="text-base font-medium">
@@ -104,16 +104,17 @@ const RepayCard = () => {
                 <button className="mt-3 px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 transition w-full font-semibold">
                   Repay
                 </button>
+              </div>
 
-                <div className="mt-6">
-                  <div className="mb-1">
-                    Health Factor:{" "}
-                    <span className="text-yellow-400">{item.healthFactor}</span>
-                  </div>
-                  <div>
-                    Credit Score:{" "}
-                    <span className="text-blue-400">{item.creditScore}</span>
-                  </div>
+              {/* Additional Information */}
+              <div className="mt-6">
+                <div className="mb-1">
+                  Health Factor:{" "}
+                  <span className="text-yellow-400">{item.healthFactor}</span>
+                </div>
+                <div>
+                  Credit Score:{" "}
+                  <span className="text-blue-400">{item.creditScore}</span>
                 </div>
               </div>
             </div>
