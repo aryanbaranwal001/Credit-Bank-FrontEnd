@@ -97,7 +97,7 @@ const RepayCard = () => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="pr-6 pl-6 py-2 w-full max-w-[90px] flex flex-row items-center justify-center bg-[#3c3c44] hover:bg-[#4b4b52e1]  text-white transition"
+                      className="pr-6 pl-6 py-2 w-full max-w-[90px] flex flex-row items-center justify-center bg-[#3c3c448e] hover:bg-[#4b4b52a9]  text-white transition"
                     >
                       {selectedTokens[item.id]?.img ? (
                         <img
