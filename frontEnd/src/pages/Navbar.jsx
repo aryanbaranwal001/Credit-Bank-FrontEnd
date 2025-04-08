@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Borrow from "./Borrow.jsx";
-import  History from "./History.jsx";
+import  Pool from "./Pool.jsx";
 import  Repay from "./Repay.jsx";
 
 const Navbar = () => {
@@ -36,16 +36,16 @@ const Navbar = () => {
               >
                 Repay
               </NavLink>
-              {/* <NavLink
-                to="/history"
+              <NavLink
+                to="/pool"
                 className={({ isActive }) =>
                   isActive
                     ? "text-pink-400 transition"
                     : "text-zinc-400 hover:text-pink-400 transition"
                 }
               >
-                History
-              </NavLink> */}
+                Pool
+              </NavLink>
             </div>
 
             {/* Right - App Button */}
@@ -62,7 +62,7 @@ const Navbar = () => {
           <Routes>
             <Route path="/borrow" element={<Borrow />} />
             <Route path="/repay" element={<Repay />} />
-            {/* <Route path="/history" element={<History />} /> */}
+            <Route path="/pool" element={<Pool />} />
           </Routes>
         </div>
       </div>

@@ -195,10 +195,6 @@ const RepayCard = () => {
                   </div>
                 </div>
               </div>
-
-
-
-              
             </div>
           </div>
         ))}
