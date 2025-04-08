@@ -116,10 +116,12 @@ const RepayCard = () => {
                         {selectedTokens[item.id]?.symbol ?? "DAI"}
                       </span>
                     </button>
+
                   </div>
+                    <span className="mt-1 pr-2 block text-md text-end text-emerald-300">$0</span>
                 </div>
 
-                <button className="mt-4 px-4 py-2 rounded-xl bg-[#333030c9] hover:bg-[#3d3a3ad2] transition w-full">
+                <button className="mt-4 px-4 py-2 min-h-[20px] rounded-xl bg-[#333030c9] hover:bg-[#3d3a3ad2] transition w-full">
                   Add Collateral
                 </button>
               </div>
@@ -158,7 +160,8 @@ const RepayCard = () => {
                       [item.id]: e.target.value,
                     }))
                   }
-                />
+                  />
+                  <span className="mt-1 pr-2 block text-md text-end text-emerald-300">$0</span>
                 <button
                   className="mt-3 px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 transition w-full font-semibold"
                   onClick={() => handleRepay(item.id)}
