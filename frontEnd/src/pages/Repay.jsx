@@ -122,7 +122,7 @@ const RepayCard = () => {
                   </span>
                 </div>
 
-                <button className="mt-4 w-full px-5 py-3 rounded-xl text-xl bg-[#28382c] hover:bg-[#2f4e3ae5] text-emerald-200 hover:text-emerald-300 font-semibold transition-all duration-200 border border-emerald-900/40 shadow-sm">
+                <button className="mt-4 w-full px-5 py-2 rounded-xl text-lg bg-[#28382c] hover:bg-[#2f4e3ae5] text-emerald-200 hover:text-emerald-300 font-semibold transition-all duration-200 border border-emerald-900/40 shadow-sm">
                   Add Collateral
                 </button>
               </div>
@@ -166,7 +166,7 @@ const RepayCard = () => {
                   $0
                 </span>
                 <button
-                  className="mt-4 w-full px-5 py-3 rounded-xl text-xl bg-[#28382c] hover:bg-[#2f4e3ae5] text-emerald-200 hover:text-emerald-300 font-semibold transition-all duration-200 border border-emerald-900/40 shadow-sm"
+                  className="mt-4 w-full px-5 py-2 rounded-xl text-lg bg-[#28382c] hover:bg-[#2f4e3ae5] text-emerald-200 hover:text-emerald-300 font-semibold transition-all duration-200 border border-emerald-900/40 shadow-sm"
                   onClick={() => handleRepay(item.id)}
                 >
                   Repay
@@ -175,22 +175,22 @@ const RepayCard = () => {
               {/* Additional Information */}
 
               <div className="mt-6 flex justify-center">
-  <div className="flex flex-col items-center gap-6 text-base font-semibold w-full max-w-md px-8 py-4">
+  <div className="flex flex-col items-center gap-5 text-sm font-semibold w-full max-w-md px-6 py-3">
     
-    <div className="flex flex-col items-center gap-2">
-      <span className="text-green-300 text-xl font-bold tracking-wider drop-shadow-[1px_1px_0px_#000]">
+    <div className="flex flex-col items-center gap-1.5">
+      <span className="text-green-300 text-lg font-bold tracking-wide drop-shadow-[1px_1px_0px_#000]">
         Health Factor
       </span>
-      <div className="px-8 py-4 rounded-full bg-green-400 text-white text-3xl font-black shadow-lg">
+      <div className="px-6 py-3 rounded-full bg-green-400 text-white text-2xl font-black shadow-lg">
         {item.healthFactor}
       </div>
     </div>
 
-    <div className="flex flex-col items-center gap-2">
-      <span className="text-blue-300 text-xl font-bold tracking-wider drop-shadow-[1px_1px_0px_#000]">
+    <div className="flex flex-col items-center gap-1.5">
+      <span className="text-blue-300 text-lg font-bold tracking-wide drop-shadow-[1px_1px_0px_#000]">
         Credit Score
       </span>
-      <div className="px-8 py-4 rounded-full bg-blue-400 text-white text-3xl font-black shadow-lg">
+      <div className="px-6 py-3 rounded-full bg-blue-400 text-white text-2xl font-black shadow-lg">
         {item.creditScore}
       </div>
     </div>
@@ -198,11 +198,8 @@ const RepayCard = () => {
   </div>
 </div>
 
-
-
-
-
-
+            
+            
             </div>
           </div>
         ))}
