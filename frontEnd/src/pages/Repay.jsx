@@ -97,7 +97,7 @@ const RepayCard = () => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="pl-4 py-2 pr-2 md:w-auto md:pr-12 lg:pr-8  mr-32 w-full flex flex-row items-center   bg-[#3c3c44] hover:bg-[#4b4b52e1]  text-white transition"
+                      className="px-5 py-2 w-full flex flex-row items-center justify-center bg-[#3c3c44] hover:bg-[#4b4b52e1]  text-white transition"
                     >
                       {selectedTokens[item.id]?.img ? (
                         <img
@@ -113,6 +113,8 @@ const RepayCard = () => {
                         />
                       )}
                       <span className="text-[100%]">{selectedTokens[item.id]?.symbol ?? "DAI"}</span>
+
+
                     </button>
                   
                   
