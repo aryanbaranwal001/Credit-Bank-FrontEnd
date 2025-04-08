@@ -88,31 +88,35 @@ const RepayCard = () => {
                   <div className="flex flex-col sm:flex-row bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden w-full">
                     <input
                       type="number"
-                      className="w-full px-4 pr-10 bg-transparent text-white outline-none"
+                      className="w-full px-4 pr-10 bg-transparent text-white outline-none text-xl"
                       placeholder="0"
                     />
+
                     <button
                       onClick={() => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="w-full flex flex-row items-center  md:w-auto md:pr-12 lg:pr-8 min-w-[20%] border-b md:border-b-0 md:border-r border-zinc-700 bg-[#3c3c44] hover:bg-[#4b4b52e1] px-4 py-2 text-white transition"
+                      className="pl-4 py-2 pr-2 md:w-auto md:pr-12 lg:pr-8  mr-32 w-full flex flex-row items-center   bg-[#3c3c44] hover:bg-[#4b4b52e1]  text-white transition"
                     >
                       {selectedTokens[item.id]?.img ? (
                         <img
                           src={selectedTokens[item.id].img}
                           alt="Token"
-                          className="w-8 h-8 inline-block mr-2"
+                          className="aspect-square h-6 max-h-6 w-auto mr-2 object-contain"
                         />
                       ) : (
                         <img
                           src="../../img/dai-modified.png"
                           alt="Token"
-                          className="w-8 h-8 inline-block mr-2"
+                          className="aspect-square h-6 max-h-6 w-auto mr-2 object-contain"
                         />
                       )}
-                      {selectedTokens[item.id]?.symbol ?? "DAI"}
+                      <span className="text-[100%]">{selectedTokens[item.id]?.symbol ?? "DAI"}</span>
                     </button>
+                  
+                  
+                  
                   </div>
                 </div>
 
