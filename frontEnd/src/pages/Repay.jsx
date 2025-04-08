@@ -97,7 +97,7 @@ const RepayCard = () => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="w-full md:w-auto md:min-w-[90px] border-b md:border-b-0 md:border-r border-zinc-700 bg-[#3c3c44] hover:bg-[#4b4b52e1] px-4 py-2 text-white transition"
+                      className="w-full md:w-auto md:pr-12 lg:pr-8 min-w-[20%] border-b md:border-b-0 md:border-r border-zinc-700 bg-[#3c3c44] hover:bg-[#4b4b52e1] px-4 py-2 text-white transition"
                     >
                       {selectedTokens[item.id] || "DAI"}
                     </button>
