@@ -826,8 +826,16 @@ video {
   width: auto;
 }
 
+.w-\[40\%\] {
+  width: 40%;
+}
+
 .min-w-\[20\%\] {
   min-width: 20%;
+}
+
+.min-w-\[40\%\] {
+  min-width: 40%;
 }
 
 .max-w-7xl {
@@ -844,6 +852,22 @@ video {
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.max-w-\[30\%\] {
+  max-width: 30%;
+}
+
+.max-w-\[80\%\] {
+  max-width: 80%;
+}
+
+.max-w-\[100px\] {
+  max-width: 100px;
+}
+
+.max-w-\[90px\] {
+  max-width: 90px;
 }
 
 .flex-1 {
@@ -1206,6 +1230,26 @@ video {
 
 .pr-2 {
   padding-right: 0.5rem;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
+.pr-5 {
+  padding-right: 1.25rem;
+}
+
+.pl-6 {
+  padding-left: 1.5rem;
+}
+
+.pr-6 {
+  padding-right: 1.5rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
 }
 
 .text-center {

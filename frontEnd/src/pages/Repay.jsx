@@ -88,7 +88,7 @@ const RepayCard = () => {
                   <div className="flex flex-col sm:flex-row bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden w-full">
                     <input
                       type="number"
-                      className="w-full px-4 pr-10 bg-transparent text-white outline-none text-xl"
+                      className="pl-2 pr-2 w-full bg-transparent text-white outline-none text-xl"
                       placeholder="0"
                     />
 
@@ -97,7 +97,7 @@ const RepayCard = () => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="px-5 py-2 w-full flex flex-row items-center justify-center bg-[#3c3c44] hover:bg-[#4b4b52e1]  text-white transition"
+                      className="pr-6 pl-6 py-2 w-full max-w-[90px] flex flex-row items-center justify-center bg-[#3c3c44] hover:bg-[#4b4b52e1]  text-white transition"
                     >
                       {selectedTokens[item.id]?.img ? (
                         <img
