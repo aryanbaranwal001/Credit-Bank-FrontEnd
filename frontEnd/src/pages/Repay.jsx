@@ -175,31 +175,30 @@ const RepayCard = () => {
               {/* Additional Information */}
 
               <div className="mt-6 flex justify-center">
-  <div className="flex flex-col items-center gap-5 text-sm font-semibold w-full max-w-md px-6 py-3">
-    
-    <div className="flex flex-col items-center gap-1.5">
-      <span className="text-green-300 text-lg font-bold tracking-wide drop-shadow-[1px_1px_0px_#000]">
-        Health Factor
-      </span>
-      <div className="px-6 py-3 rounded-full bg-green-400 text-white text-2xl font-black shadow-lg">
-        {item.healthFactor}
-      </div>
-    </div>
+                <div className="flex flex-col items-center gap-5 text-sm font-semibold w-full max-w-md px-6 py-3">
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-green-300 text-lg font-bold tracking-wide drop-shadow-[1px_1px_0px_#000]">
+                      Health Factor
+                    </span>
+                    <div className="px-6 py-1 text-green-300 text-4xl font-black shadow-lg">
+                      {item.healthFactor}
+                    </div>
+                  </div>
 
-    <div className="flex flex-col items-center gap-1.5">
-      <span className="text-blue-300 text-lg font-bold tracking-wide drop-shadow-[1px_1px_0px_#000]">
-        Credit Score
-      </span>
-      <div className="px-6 py-3 rounded-full bg-blue-400 text-white text-2xl font-black shadow-lg">
-        {item.creditScore}
-      </div>
-    </div>
+                  <div className="flex flex-col items-center gap-1.5">
+                    <span className="text-blue-400 text-lg font-bold tracking-wide drop-shadow-[1px_1px_0px_#000]">
+                      Credit Score
+                    </span>
+                    <div className="px-6 py-1 text-blue-400 text-4xl font-black shadow-lg">
+                      {item.creditScore}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  </div>
-</div>
 
-            
-            
+
+              
             </div>
           </div>
         ))}
