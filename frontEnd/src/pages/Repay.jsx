@@ -88,7 +88,7 @@ const RepayCard = () => {
                   <div className="flex flex-col sm:flex-row bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden w-full">
                     <input
                       type="number"
-                      className="pl-2 pr-2 w-full bg-transparent text-white outline-none text-xl"
+                      className="pl-2 pr-2 w-full bg-zinc-800 text-white outline-none text-xl"
                       placeholder="0"
                     />
 
@@ -97,7 +97,7 @@ const RepayCard = () => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="pr-6 pl-6 py-2 w-full max-w-[90px] flex flex-row items-center justify-center bg-[#3c3c448e] hover:bg-[#4b4b52a9]  text-white transition"
+                      className="pr-6 pl-6 py-2.5 w-full max-w-[90px] flex flex-row items-center justify-center bg-[#3c3c448e] hover:bg-[#4b4b52a9]  text-white transition"
                     >
                       {selectedTokens[item.id]?.img ? (
                         <img
@@ -112,17 +112,14 @@ const RepayCard = () => {
                           className="aspect-square h-6 max-h-6 w-auto mr-2 object-contain"
                         />
                       )}
-                      <span className="text-[100%]">{selectedTokens[item.id]?.symbol ?? "DAI"}</span>
-
-
+                      <span className="text-[100%]">
+                        {selectedTokens[item.id]?.symbol ?? "DAI"}
+                      </span>
                     </button>
-                  
-                  
-                  
                   </div>
                 </div>
 
-                <button className="mt-4 px-4 py-2 rounded-xl bg-zinc-700 hover:bg-zinc-600 transition w-full">
+                <button className="mt-4 px-4 py-2 rounded-xl bg-[#333030c9] hover:bg-[#3d3a3ad2] transition w-full">
                   Add Collateral
                 </button>
               </div>
@@ -132,23 +129,28 @@ const RepayCard = () => {
                 <h2 className="text-lg font-semibold mb-4 text-pink-400">
                   Borrowings
                 </h2>
-                <div className="text-base font-medium">
-                  <span className="text-2xl text-pink-200 mr-2">
-                    {item.borrow.amount}
-                  </span>
-                  <span className="text-sm text-gray-400">
-                    {item.borrow.token}
-                  </span>
-                </div>
-                <div className="ml-1 text-sm text-emerald-500 mb-4">
-                  ${item.borrow.usd}
+
+                <div className="mt-3 mb-4 pt-4 px-4 bg-gradient-to-r from-zinc-800 to-zinc-900 rounded-2xl shadow-inner flex flex-col items-start justify-center">
+                  <div className="text-base font-medium">
+                    <span className="text-2xl text-pink-200 mr-2">
+                      {item.borrow.amount}
+                    </span>
+                    <span className="text-sm text-gray-400">
+                      {item.borrow.token}
+                    </span>
+                  </div>
+                  <div className="ml-1 text-sm text-emerald-500 mb-4">
+                    ${item.borrow.usd}
+                  </div>
                 </div>
 
-                <label className="block text-sm mb-2">Repay Amount</label>
+                <label className="block text-sm mb-2 text-gray-400">
+                  Repayment Amount
+                </label>
                 <input
                   type="number"
                   placeholder="0"
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none border border-zinc-700 focus:ring-2 focus:ring-zinc-600"
+                  className="text-xl w-full px-4 py-2 rounded-xl bg-zinc-800 text-white outline-none border border-zinc-700"
                   value={repayAmounts[item.id] || ""}
                   onChange={(e) =>
                     setRepayAmounts((prev) => ({
