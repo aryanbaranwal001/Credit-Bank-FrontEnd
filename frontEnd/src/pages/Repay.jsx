@@ -88,7 +88,7 @@ const RepayCard = () => {
                   <div className="flex flex-col sm:flex-row bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden w-full">
                     <input
                       type="number"
-                      className="w-full px-4 py-2 bg-transparent text-white outline-none"
+                      className="w-full px-4 pr-10 bg-transparent text-white outline-none"
                       placeholder="0"
                     />
                     <button

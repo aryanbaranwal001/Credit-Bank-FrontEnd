@@ -97,6 +97,12 @@ input[type="number"] {
   -moz-appearance: textfield; /* For Firefox */
 }
 
+  /* outline none global */
+
+  html, body {
+    outline: none;
+  }
+  
 
 
   /*Calendar Input*/
