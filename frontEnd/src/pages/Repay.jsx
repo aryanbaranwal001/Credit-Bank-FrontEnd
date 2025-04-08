@@ -83,15 +83,13 @@ const RepayCard = () => {
                       ${item.totalCollateral}
                     </div>
                   </div>
-
                 </div>
 
-
-                <div className="mt-4 flex gap-3 items-center">
-                  <div className="flex bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
+                <div className="mt-4 w-full">
+                  <div className="flex flex-col sm:flex-row bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden w-full">
                     <input
                       type="number"
-                      className="w-24 px-3 py-2 bg-transparent text-white outline-none"
+                      className="w-full px-4 py-2 bg-transparent text-white outline-none"
                       placeholder="0"
                     />
                     <button
@@ -99,9 +97,9 @@ const RepayCard = () => {
                         setTokenModalOpen(true);
                         setActiveTokenCardId(item.id);
                       }}
-                      className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 transition"
+                      className="w-full md:w-auto md:min-w-[90px] border-b md:border-b-0 md:border-r border-zinc-700 bg-[#3c3c44] hover:bg-[#4b4b52e1] px-4 py-2 text-white transition"
                     >
-                      {selectedTokens[item.id] || "ETH"}
+                      {selectedTokens[item.id] || "DAI"}
                     </button>
                   </div>
                 </div>
@@ -114,7 +112,7 @@ const RepayCard = () => {
               {/* Borrow Section */}
               <div className="flex flex-col justify-end">
                 <h2 className="text-lg font-semibold mb-4 text-pink-400">
-                  Borrow
+                  Borrowings
                 </h2>
                 <div className="text-base font-medium">
                   <span className="text-2xl text-pink-200 mr-2">
