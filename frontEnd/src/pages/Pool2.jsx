@@ -62,7 +62,7 @@ export default function EnhancedPool() {
   };
 
   return (
-    <div className="p-6 bg-black min-h-screen flex justify-center items-center">
+    <div className="p-6 bg-transparent min-h-screen flex justify-center items-center">
       <div 
         className="absolute inset-0 opacity-20 overflow-hidden"
         style={{
