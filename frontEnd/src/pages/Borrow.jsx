@@ -177,7 +177,7 @@ const CollateralField = ({
               <span className="text-sm whitespace-nowrap">
                 {item.token.symbol}
               </span>
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-12 h-12" />
             </motion.button>
 
             <TokenDropdown
@@ -515,7 +515,7 @@ export default function Borrow() {
                   <span className="text-sm whitespace-nowrap">
                     {selectedBorrowToken.symbol}
                   </span>
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-12 h-12" />
                 </motion.button>
 
                 <TokenDropdown
