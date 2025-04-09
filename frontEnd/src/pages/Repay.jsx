@@ -5,52 +5,6 @@ import { X, ChevronDown, Info } from "lucide-react";
 import { TOKENS } from "../data";
 import { ethers } from "ethers";
 
-// Global CSS to be added to your stylesheet
-const globalStyles = `
-/* Remove input arrows */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-/* Custom Scrollbar - like Claude */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Hide horizontal scrollbar */
-.hide-horizontal-scroll {
-  overflow-x: hidden;
-}
-
-/* For Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-}
-
-body {
-  overflow-x: hidden;
-}
-`;
 
 const RepayCard = () => {
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
@@ -166,8 +120,6 @@ const RepayCard = () => {
 
   return (
     <>
-      {/* Add global styles */}
-      <style>{globalStyles}</style>
       
       <motion.div 
         className="min-h-screen text-white bg-zinc-950 flex flex-col items-center overflow-x-hidden hide-horizontal-scroll"
