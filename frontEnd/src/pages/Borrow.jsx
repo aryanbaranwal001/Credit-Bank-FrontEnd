@@ -536,14 +536,14 @@ export default function Borrow() {
 
           {/* Date Selector */}
           <motion.div
-            className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 mt-4"
+            className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 mt-4 relative z-[50]"
             style={{ zIndex: isCalendarOpen ? 120 : 30 }} // Higher when calendar is open
             whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
           >
             <div className="text-sm text-zinc-400 mb-3">Repayment Period</div>
 
-            <div className="flex items-center justify-between relative">
-              <div className="flex items-center space-x-2 bg-zinc-800/80 px-3 py-2 rounded-xl">
+            <div className="flex items-center justify-between relative z-[50]">
+              <div className="flex items-center space-x-2 bg-zinc-800/80 px-3 py-2 rounded-xl  relative z-[50]">
                 <Calendar size={16} className="text-zinc-400" />
                 <DatePicker
                   selected={startDate}
@@ -560,7 +560,7 @@ export default function Borrow() {
                   minDate={
                     new Date(new Date().setDate(new Date().getDate() + 1))
                   } // Tomorrow
-                  className="bg-transparent text-sm text-white outline-none w-28 placeholder-zinc-500"
+                  className="bg-transparent text-sm text-white outline-none w-28 placeholder-zinc-500 relative z-[50]"
                 />
               </div>
 
