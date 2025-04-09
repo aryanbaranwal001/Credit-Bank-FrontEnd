@@ -555,7 +555,7 @@ export default function Borrow() {
                     setDropdownType(null);
                   }}
                   onCalendarClose={() => setIsCalendarOpen(false)}
-                  dateFormat="MMM dd, yyyy"
+                  dateFormat="dd MMMM yyyy"
                   placeholderText="Start Date"
                   minDate={
                     new Date(new Date().setDate(new Date().getDate() + 1))
@@ -578,7 +578,7 @@ export default function Borrow() {
                     setDropdownType(null);
                   }}
                   onCalendarClose={() => setIsCalendarOpen(false)}
-                  dateFormat="MMM dd, yyyy"
+                  dateFormat="dd MMMM yyyy"
                   placeholderText="End Date"
                   minDate={
                     startDate ||
