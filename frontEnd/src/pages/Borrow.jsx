@@ -22,7 +22,7 @@ const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
     position === "top" ? "-top-2 -translate-y-full" : "top-full";
 
   return (
-    <AnimatePresence className="z-10">
+    <AnimatePresence className="relative z-[9999]">
       {isOpen && (
         <motion.div
           className={`absolute ${dropdownPosition} right-0 w-64 bg-zinc-900 rounded-xl shadow-xl border border-zinc-800 z-[9999]`}
@@ -43,7 +43,7 @@ const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
             </div>
           </div>
 
-          <div className="max-h-64 overflow-y-auto py-2 custom-scrollbar">
+          <div className="max-h-64 overflow-y-auto py-2 custom-scrollbar z-[9999]">
             {tokens.length > 0 ? (
               tokens.map((token) => (
                 <motion.div
@@ -119,12 +119,12 @@ const CollateralField = ({
       className="relative mb-3 z-10"
     >
       <motion.div
-        className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 z-10"
+        className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 relative z-10"
         whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
         transition={{ duration: 0.3 }}
       >
         <div className="text-sm text-zinc-400 mb-1">Collateral</div>
-        <div className="flex items-center justify-between z-10">
+        <div className="flex items-center justify-between relative  z-10">
           <input
             type="number"
             placeholder="0.0"
@@ -344,12 +344,12 @@ export default function Borrow() {
   }, [startDate, endDate]);
 
   return (
-    <div className="w-full flex justify-center items-center min-h-screen py-28">
+    <div className="w-full flex justify-center items-center min-h-screen py-28  relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md px-4"
+        className="w-full max-w-md px-4  relative z-10"
       >
         <motion.div
           className="mb-6 text-center"
@@ -366,7 +366,7 @@ export default function Borrow() {
         </motion.div>
 
         <motion.div
-          className="bg-zinc-900/30 backdrop-blur-xl rounded-3xl border border-zinc-800/50 p-5 shadow-xl"
+          className="bg-zinc-900/30 backdrop-blur-xl rounded-3xl border border-zinc-800/50 p-5 shadow-xl  relative z-10"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}
@@ -408,11 +408,11 @@ export default function Borrow() {
 
           {/* Borrow Section */}
           <motion.div
-            className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 mt-5"
+            className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 mt-5 relative z-10"
             whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
           >
             <div className="text-sm text-zinc-400 mb-1">Borrow</div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between relative z-10">
               <input
                 type="number"
                 placeholder="0.0"
@@ -421,7 +421,7 @@ export default function Borrow() {
                 className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
               />
 
-              <div className="relative">
+              <div className="relative z-10">
                 <motion.button
                   className="gap-1 bg-zinc-800 text-white pr-3 rounded-full flex flex-row items-center justify-end space-x-1"
                   onClick={() =>
