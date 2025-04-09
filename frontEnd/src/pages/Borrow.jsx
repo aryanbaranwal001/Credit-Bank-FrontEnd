@@ -4,7 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ChevronDown, X, MoveRight, Plus, Calendar, Info, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { useWeb3 } from "../context/Web3Context";
 import { TOKENS } from "../data.js";
 
@@ -186,7 +187,7 @@ export default function Borrow() {
   // Handle adding a new collateral field
   const addCollateral = () => {
     if (collaterals.length >= 5) {
-      toast.warning("Maximum 5 collateral fields allowed");
+      toast.error("Maximum 5 collateral fields allowed");
       return;
     }
     
@@ -201,7 +202,6 @@ export default function Borrow() {
       }
     ]);
   };
-  
   // Handle removing a collateral field
   const removeCollateral = (id) => {
     setCollaterals(prev => prev.filter(item => item.id !== id));

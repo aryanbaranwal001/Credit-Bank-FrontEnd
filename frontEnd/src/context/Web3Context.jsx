@@ -1,7 +1,7 @@
 // context/Web3Context.jsx
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { ethers } from "ethers";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const Web3Context = createContext();
 
