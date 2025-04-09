@@ -1,10 +1,10 @@
 import { dai, link, usdc, wbtc, weth } from "../img";
 const TOKENS = [
-  { name: "DAI", symbol: "DAI", address: "0x6B175...4dd1", img: dai, decimals: 18 },
-  { name: "Chainlink", symbol: "LINK", address: "0x514910...EE4E",img: link, decimals: 18 },
-  { name: "USDC", symbol: "USDC", address: "0xA0b8...eB48",img: usdc, decimals: 6 },
-  { name: "Wrapped Bitcoin", symbol: "WBTC", address: "0x2260...C599",img: wbtc, decimals: 8 },
-  { name: "Wrapped Ethereum", symbol: "WETH", address: "0xfFf9...6B14",img: weth, decimals: 18 },
+  { name: "DAI", symbol: "DAI", address: "0x6B175...4dd1", img: dai, decimals: 18, rate: 1.0  },
+  { name: "Chainlink", symbol: "LINK", address: "0x514910...EE4E",img: link, decimals: 18, rate: 13.82  },
+  { name: "USDC", symbol: "USDC", address: "0xA0b8...eB48",img: usdc, decimals: 6, rate: 1.0  },
+  { name: "Wrapped Bitcoin", symbol: "WBTC", address: "0x2260...C599",img: wbtc, decimals: 8, rate: 69450.25  },
+  { name: "Wrapped Ethereum", symbol: "WETH", address: "0xfFf9...6B14",img: weth, decimals: 18, rate: 3487.63  },
 ];
 
 

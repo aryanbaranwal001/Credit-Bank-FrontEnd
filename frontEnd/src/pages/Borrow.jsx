@@ -4,12 +4,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ChevronDown, X, MoveRight, Plus, Calendar, Info, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-// import { toast } from "react-toastify";
 import toast from "react-hot-toast";
 import { useWeb3 } from "../context/Web3Context";
 import { TOKENS } from "../data.js";
 
-// Token dropdown menu with animations
+// The TokenDropdown component with fixed z-index to ensure it appears on top
 const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
   const dropdownPosition = position === "top" ? "-top-2 -translate-y-full" : "top-full";
   
@@ -62,6 +61,13 @@ const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
   );
 };
 
+// Calculate USD value based on token amount and rate
+const calculateUsdValue = (amount, token) => {
+  if (!amount || isNaN(amount) || amount === "") return "0.00";
+  const numericAmount = parseFloat(amount);
+  return (numericAmount * token.rate).toFixed(2);
+};
+
 // Individual collateral input field component
 const CollateralField = ({ 
   item, 
@@ -82,6 +88,9 @@ const CollateralField = ({
     onChange({ ...item, token });
     setIsDropdownOpen(false);
   };
+  
+  // Calculate USD value
+  const usdValue = calculateUsdValue(item.amount, item.token);
   
   return (
     <motion.div
@@ -106,7 +115,7 @@ const CollateralField = ({
             className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
           />
           
-          <div className="relative">
+          <div className="relative" style={{ zIndex: isDropdownOpen ? 50 : 1 }}>
             <motion.button
               className="gap-1 bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1 rounded-full flex items-center space-x-1"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -132,7 +141,7 @@ const CollateralField = ({
         </div>
         
         <div className="flex justify-between mt-2">
-          <div className="text-sm text-zinc-500">$0.00</div>
+          <div className="text-sm text-zinc-500">${usdValue}</div>
           {!isFirst && (
             <motion.button
               onClick={onRemove}
@@ -157,7 +166,7 @@ export default function Borrow() {
   const [borrowAmount, setBorrowAmount] = useState("");
   const [dropdownType, setDropdownType] = useState(null);
   
-  // Collateral fields
+  // Collateral fields - updated to use the enhanced tokens
   const [collaterals, setCollaterals] = useState([
     {
       id: Date.now(),
@@ -166,8 +175,11 @@ export default function Borrow() {
     },
   ]);
   
-  // Selected borrow token
+  // Selected borrow token - updated to use enhanced tokens
   const [selectedBorrowToken, setSelectedBorrowToken] = useState(TOKENS[0]);
+  
+  // Calculate USD value for borrow amount
+  const borrowUsdValue = calculateUsdValue(borrowAmount, selectedBorrowToken);
   
   // Calculate what tokens are available for collateral (not already selected)
   const getAvailableTokens = (currentId) => {
@@ -383,10 +395,10 @@ export default function Borrow() {
                 className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
               />
               
-              <div className="relative">
+              <div className="relative" style={{ zIndex: dropdownType === "borrow" ? 50 : 1 }}>
                 <motion.button
                   className="gap-1 bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1 rounded-full flex items-center space-x-1"
-                  onClick={() => setDropdownType("borrow")}
+                  onClick={() => setDropdownType(dropdownType === "borrow" ? null : "borrow")}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -410,7 +422,7 @@ export default function Borrow() {
                 />
               </div>
             </div>
-            <div className="text-sm text-zinc-500 mt-2">$0.00</div>
+            <div className="text-sm text-zinc-500 mt-2">${borrowUsdValue}</div>
           </motion.div>
 
           {/* Date Selector */}
@@ -420,7 +432,7 @@ export default function Borrow() {
           >
             <div className="text-sm text-zinc-400 mb-3">Repayment Period</div>
             
-            <div className="flex items-center justify-between relative z-20">
+            <div className="flex items-center justify-between relative" style={{ zIndex: isCalendarOpen ? 40 : 1 }}>
               <div className="flex items-center space-x-2 bg-zinc-800/80 px-3 py-2 rounded-xl">
                 <Calendar size={16} className="text-zinc-400" />
                 <DatePicker
