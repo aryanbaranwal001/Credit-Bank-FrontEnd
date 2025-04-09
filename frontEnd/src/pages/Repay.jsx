@@ -257,13 +257,13 @@ const RepayCard = () => {
                               />
                             ) : (
                               <img
-                                src="../../img/eth-modified.png"
-                                alt="ETH"
+                                src="../../img/dai-modified.png"
+                                alt="DAI"
                                 className="h-6 w-6 mr-2 object-contain"
                               />
                             )}
                             <span>
-                              {selectedTokens[`collateral-${item.id}`]?.symbol ?? "ETH"}
+                              {selectedTokens[`collateral-${item.id}`]?.symbol ?? "DAI"}
                             </span>
                             <ChevronDown size={16} className="ml-1" />
                           </motion.button>
