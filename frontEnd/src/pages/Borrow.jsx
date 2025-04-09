@@ -22,10 +22,10 @@ const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
     position === "top" ? "-top-2 -translate-y-full" : "top-full";
 
   return (
-    <AnimatePresence>
+    <AnimatePresence className="z-10">
       {isOpen && (
         <motion.div
-          className={`absolute ${dropdownPosition} right-0 w-64 bg-zinc-900 rounded-xl shadow-xl border border-zinc-800 z-50`}
+          className={`absolute ${dropdownPosition} right-0 w-64 bg-zinc-900 rounded-xl shadow-xl border border-zinc-800 z-[9999]`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
@@ -116,15 +116,15 @@ const CollateralField = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="relative mb-3"
+      className="relative mb-3 z-10"
     >
       <motion.div
-        className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50"
+        className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 z-10"
         whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
         transition={{ duration: 0.3 }}
       >
         <div className="text-sm text-zinc-400 mb-1">Collateral</div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between z-10">
           <input
             type="number"
             placeholder="0.0"
@@ -133,7 +133,7 @@ const CollateralField = ({
             className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
           />
 
-          <div className="relative">
+          <div className="relative z-10">
             <motion.button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               whileHover={{ scale: 1.03 }}
