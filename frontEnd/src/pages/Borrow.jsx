@@ -16,19 +16,20 @@ import toast from "react-hot-toast";
 import { useWeb3 } from "../context/Web3Context";
 import { TOKENS } from "../data.js";
 
-// The TokenDropdown component with fixed z-index to ensure it appears on top
-const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
-  const dropdownPosition =
-    position === "top" ? "-top-2 -translate-y-full" : "top-full";
+// Improved TokenDropdown component with dynamic z-index and better positioning
+const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position, zIndex = 50 }) => {
+  // Calculate position based on viewport and button location
+  const dropdownPosition = position === "top" ? "bottom-full mb-2" : "top-full mt-2";
 
   return (
-    <AnimatePresence className="relative z-[9999]">
+    <AnimatePresence>
       {isOpen && (
         <motion.div
-          className={`absolute ${dropdownPosition} right-0 w-64 bg-zinc-900 rounded-xl shadow-xl border border-zinc-800 z-[9999]`}
-          initial={{ opacity: 0, y: 10 }}
+          className={`absolute ${dropdownPosition} right-0 w-64 bg-zinc-900 rounded-xl shadow-xl border border-zinc-800`}
+          style={{ zIndex }}
+          initial={{ opacity: 0, y: position === "top" ? 10 : -10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
+          exit={{ opacity: 0, y: position === "top" ? 10 : -10 }}
           transition={{ duration: 0.2 }}
         >
           <div className="p-3 border-b border-zinc-800">
@@ -43,7 +44,7 @@ const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
             </div>
           </div>
 
-          <div className="max-h-64 overflow-y-auto py-2 custom-scrollbar z-[9999]">
+          <div className="max-h-64 overflow-y-auto py-2 custom-scrollbar">
             {tokens.length > 0 ? (
               tokens.map((token) => (
                 <motion.div
@@ -86,7 +87,7 @@ const calculateUsdValue = (amount, token) => {
   return (numericAmount * token.rate).toFixed(2);
 };
 
-// Individual collateral input field component
+// Enhanced collateral input field component with dynamic z-index
 const CollateralField = ({
   item,
   availableTokens,
@@ -94,8 +95,19 @@ const CollateralField = ({
   onRemove,
   isLast,
   isFirst,
+  zIndex,
+  activeField,
+  setActiveField,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState("bottom");
+  const tokenBtnRef = React.useRef(null);
+
+  // Check if this field is the active one
+  const isActive = activeField === item.id;
+  
+  // Calculate dynamic z-index: active field gets highest priority
+  const dynamicZIndex = isActive ? 100 : zIndex;
 
   const handleAmountChange = (e) => {
     const value = e.target.value;
@@ -105,6 +117,21 @@ const CollateralField = ({
   const handleTokenSelect = (token) => {
     onChange({ ...item, token });
     setIsDropdownOpen(false);
+    setActiveField(null);
+  };
+
+  const handleToggleDropdown = () => {
+    // Set position based on available space
+    if (tokenBtnRef.current) {
+      const rect = tokenBtnRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      // If less than 300px below, show dropdown above
+      setDropdownPosition(spaceBelow < 300 ? "top" : "bottom");
+    }
+    
+    // Toggle dropdown and set this as active field
+    setIsDropdownOpen(!isDropdownOpen);
+    setActiveField(isDropdownOpen ? null : item.id);
   };
 
   // Calculate USD value
@@ -116,15 +143,16 @@ const CollateralField = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="relative mb-3 z-10"
+      className="relative mb-3"
+      style={{ zIndex: dynamicZIndex }}
     >
       <motion.div
-        className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 relative z-10"
+        className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 relative"
         whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
         transition={{ duration: 0.3 }}
       >
         <div className="text-sm text-zinc-400 mb-1">Collateral</div>
-        <div className="flex items-center justify-between relative  z-10">
+        <div className="flex items-center justify-between relative">
           <input
             type="number"
             placeholder="0.0"
@@ -133,9 +161,10 @@ const CollateralField = ({
             className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
           />
 
-          <div className="relative z-10">
+          <div className="relative">
             <motion.button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              ref={tokenBtnRef}
+              onClick={handleToggleDropdown}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               className="gap-1 bg-zinc-800 text-white pr-3 rounded-full flex flex-row items-center justify-end space-x-1"
@@ -148,17 +177,19 @@ const CollateralField = ({
               <span className="text-sm whitespace-nowrap">
                 {item.token.symbol}
               </span>
-
-              {/* </div> */}
-              <ChevronDown className="w-12 h-12" />
+              <ChevronDown className="w-4 h-4" />
             </motion.button>
-            {/* this work, that why ediitng              */}
 
             <TokenDropdown
               isOpen={isDropdownOpen}
               tokens={availableTokens}
               onSelect={handleTokenSelect}
-              onClose={() => setIsDropdownOpen(false)}
+              onClose={() => {
+                setIsDropdownOpen(false);
+                setActiveField(null);
+              }}
+              position={dropdownPosition}
+              zIndex={dynamicZIndex + 10} // Ensure dropdown is above its field
             />
           </div>
         </div>
@@ -188,6 +219,9 @@ export default function Borrow() {
   const [endDate, setEndDate] = useState(null);
   const [borrowAmount, setBorrowAmount] = useState("");
   const [dropdownType, setDropdownType] = useState(null);
+  const [activeField, setActiveField] = useState(null);
+  const borrowBtnRef = React.useRef(null);
+  const [borrowDropdownPosition, setBorrowDropdownPosition] = useState("bottom");
 
   // Collateral fields - updated to use the enhanced tokens
   const [collaterals, setCollaterals] = useState([
@@ -240,9 +274,14 @@ export default function Borrow() {
       },
     ]);
   };
+  
   // Handle removing a collateral field
   const removeCollateral = (id) => {
     setCollaterals((prev) => prev.filter((item) => item.id !== id));
+    // Reset active field if the removed field was active
+    if (activeField === id) {
+      setActiveField(null);
+    }
   };
 
   // Update a specific collateral field
@@ -250,6 +289,24 @@ export default function Borrow() {
     setCollaterals((prev) =>
       prev.map((item) => (item.id === updatedItem.id ? updatedItem : item))
     );
+  };
+
+  // Handle borrow token dropdown toggle
+  const handleBorrowTokenToggle = () => {
+    // Check position before opening
+    if (borrowBtnRef.current) {
+      const rect = borrowBtnRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      // If less than 300px below, show dropdown above
+      setBorrowDropdownPosition(spaceBelow < 300 ? "top" : "bottom");
+    }
+    
+    // Close any open collateral dropdowns when opening borrow dropdown
+    if (dropdownType !== "borrow") {
+      setActiveField(null);
+    }
+    
+    setDropdownType(dropdownType === "borrow" ? null : "borrow");
   };
 
   // Date validation
@@ -336,6 +393,22 @@ export default function Borrow() {
     }
   };
 
+  // Close all dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close all dropdowns if clicking outside
+      if (!event.target.closest('.dropdown-area')) {
+        setActiveField(null);
+        setDropdownType(null);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     // Validate dates whenever they change
     if (startDate && endDate) {
@@ -344,12 +417,12 @@ export default function Borrow() {
   }, [startDate, endDate]);
 
   return (
-    <div className="w-full flex justify-center items-center min-h-screen py-28  relative z-10">
+    <div className="w-full flex justify-center items-center min-h-screen py-28 relative">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md px-4  relative z-10"
+        className="w-full max-w-md px-4 relative"
       >
         <motion.div
           className="mb-6 text-center"
@@ -366,12 +439,13 @@ export default function Borrow() {
         </motion.div>
 
         <motion.div
-          className="bg-zinc-900/30 backdrop-blur-xl rounded-3xl border border-zinc-800/50 p-5 shadow-xl  relative z-10"
+          className="bg-zinc-900/30 backdrop-blur-xl rounded-3xl border border-zinc-800/50 p-5 shadow-xl relative"
+          style={{ zIndex: 10 }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}
         >
-          {/* Collateral Fields */}
+          {/* Collateral Fields with dynamic z-index */}
           <AnimatePresence>
             {collaterals.map((item, idx) => (
               <CollateralField
@@ -382,6 +456,9 @@ export default function Borrow() {
                 onRemove={() => removeCollateral(item.id)}
                 isLast={idx === collaterals.length - 1}
                 isFirst={idx === 0}
+                zIndex={50 - idx} // Decreasing z-index for each field
+                activeField={activeField}
+                setActiveField={setActiveField}
               />
             ))}
           </AnimatePresence>
@@ -408,11 +485,12 @@ export default function Borrow() {
 
           {/* Borrow Section */}
           <motion.div
-            className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 mt-5 relative z-10"
+            className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 mt-5 relative dropdown-area"
+            style={{ zIndex: dropdownType === "borrow" ? 99 : 40 }}
             whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
           >
             <div className="text-sm text-zinc-400 mb-1">Borrow</div>
-            <div className="flex items-center justify-between relative z-10">
+            <div className="flex items-center justify-between relative">
               <input
                 type="number"
                 placeholder="0.0"
@@ -421,12 +499,11 @@ export default function Borrow() {
                 className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
               />
 
-              <div className="relative z-10">
+              <div className="relative">
                 <motion.button
+                  ref={borrowBtnRef}
                   className="gap-1 bg-zinc-800 text-white pr-3 rounded-full flex flex-row items-center justify-end space-x-1"
-                  onClick={() =>
-                    setDropdownType(dropdownType === "borrow" ? null : "borrow")
-                  }
+                  onClick={handleBorrowTokenToggle}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -438,9 +515,7 @@ export default function Borrow() {
                   <span className="text-sm whitespace-nowrap">
                     {selectedBorrowToken.symbol}
                   </span>
-
-                  {/* </div> */}
-                  <ChevronDown className="w-12 h-12" />
+                  <ChevronDown className="w-4 h-4" />
                 </motion.button>
 
                 <TokenDropdown
@@ -451,6 +526,8 @@ export default function Borrow() {
                     setDropdownType(null);
                   }}
                   onClose={() => setDropdownType(null)}
+                  position={borrowDropdownPosition}
+                  zIndex={110} // Higher than any collateral field
                 />
               </div>
             </div>
@@ -460,20 +537,23 @@ export default function Borrow() {
           {/* Date Selector */}
           <motion.div
             className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50 mt-4"
+            style={{ zIndex: isCalendarOpen ? 120 : 30 }} // Higher when calendar is open
             whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
           >
             <div className="text-sm text-zinc-400 mb-3">Repayment Period</div>
 
-            <div
-              className="flex items-center justify-between relative"
-              style={{ zIndex: isCalendarOpen ? 40 : 1 }}
-            >
+            <div className="flex items-center justify-between relative">
               <div className="flex items-center space-x-2 bg-zinc-800/80 px-3 py-2 rounded-xl">
                 <Calendar size={16} className="text-zinc-400" />
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
-                  onCalendarOpen={() => setIsCalendarOpen(true)}
+                  onCalendarOpen={() => {
+                    setIsCalendarOpen(true);
+                    // Close any open dropdowns when calendar opens
+                    setActiveField(null);
+                    setDropdownType(null);
+                  }}
                   onCalendarClose={() => setIsCalendarOpen(false)}
                   dateFormat="MMM dd, yyyy"
                   placeholderText="Start Date"
@@ -491,7 +571,12 @@ export default function Borrow() {
                 <DatePicker
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
-                  onCalendarOpen={() => setIsCalendarOpen(true)}
+                  onCalendarOpen={() => {
+                    setIsCalendarOpen(true);
+                    // Close any open dropdowns when calendar opens
+                    setActiveField(null);
+                    setDropdownType(null);
+                  }}
                   onCalendarClose={() => setIsCalendarOpen(false)}
                   dateFormat="MMM dd, yyyy"
                   placeholderText="End Date"
