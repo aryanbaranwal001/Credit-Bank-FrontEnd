@@ -1,93 +1,41 @@
-import React from "react";
-import { TOKENS } from "../data";
+// pages/Pool.jsx
+import { motion } from "framer-motion";
 
-const pools = [
-  {
-    id: "DAI/LINK",
-    tvl: "$33M",
-    tokenA: "DAI",
-    tokenB: "LINK",
-  },
-  {
-    id: "LINK/WBTC",
-    tvl: "$50M",
-    tokenA: "LINK",
-    tokenB: "WBTC",
-  },
-  {
-    id: "WBTC/WETH",
-    tvl: "$18M",
-    tokenA: "WBTC",
-    tokenB: "WETH",
-  },
-  {
-    id: "WETH/USDC",
-    tvl: "$25M",
-    tokenA: "WETH",
-    tokenB: "USDC",
-  },
-];
-
-// Helper to get token image
-const getTokenImage = (symbol) => {
-  const token = TOKENS.find((t) => t.symbol === symbol);
-  return token?.img || "";
-};
-
-const PoolCard = ({ pool }) => {
+export default function Pool() {
   return (
-    <div className="bg-zinc-900 text-white border border-zinc-700 rounded-2xl p-6 w-full max-w-sm shadow-md max-h-[310px]">
-      {/* Header */}
-      <div className="flex justify-between items-start mb-4">
-        <div className="text-sm text-zinc-400">POOL</div>
-        <div className="text-right">
-          <div className="text-xs text-zinc-400">TVL</div>
-          <div className="text-md">{pool.tvl}</div>
-        </div>
-      </div>
-
-      {/* Pool ID */}
-      <div className="text-2xl font-mono font-bold mb-6">{pool.id}</div>
-
-      {/* Inputs */}
-      <div className="flex space-x-4 mb-6">
-        {[pool.tokenA, pool.tokenB].map((token) => (
-          <div key={token} className="flex-1 text-center">
-            <div className="text-sm text-zinc-400 mb-1">{token} Tokens</div>
-            <div className="relative">
-              <input
-                type="number"
-                placeholder="0"
-                className="w-full pl-10 rounded-lg px-3 py-2 bg-zinc-800 border border-zinc-600 text-white outline-none"
-              />
-              <img
-                src={getTokenImage(token)}
-                alt={token}
-                className="w-5 h-5 absolute left-2 top-1/2 transform -translate-y-1/2"
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Button */}
-      <button className="w-full bg-green-700 hover:bg-green-600 text-white font-medium py-2 rounded-xl transition">
-        ADD
-      </button>
+    <div className="w-full flex justify-center items-center min-h-screen py-28">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md p-6 bg-zinc-900/30 backdrop-blur-xl rounded-3xl border border-zinc-800/50 shadow-xl"
+      >
+        <h1 className="text-3xl font-bold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">Pool</h1>
+        <p className="text-zinc-400 text-center">
+          Pool functionality is coming soon. Here you'll be able to provide liquidity and earn rewards.
+        </p>
+      </motion.div>
     </div>
   );
-};
+}
 
-const PoolsGrid = () => {
+// pages/Repay.jsx
+import { motion } from "framer-motion";
+
+export default function Repay() {
   return (
-    <div className="p-6 bg-black h-full flex justify-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-screen-lg w-full">
-        {pools.map((pool) => (
-          <PoolCard key={pool.id} pool={pool} />
-        ))}
-      </div>
+    <div className="w-full flex justify-center items-center min-h-screen py-28">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md p-6 bg-zinc-900/30 backdrop-blur-xl rounded-3xl border border-zinc-800/50 shadow-xl"
+      >
+        <h1 className="text-3xl font-bold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">Repay Loans</h1>
+        <p className="text-zinc-400 text-center">
+          Repay functionality is coming soon. Here you'll be able to repay your loans and reclaim your collateral.
+        </p>
+      </motion.div>
     </div>
   );
-};
-
-export default PoolsGrid;
+}

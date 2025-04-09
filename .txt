@@ -1,0 +1,152 @@
+Generate me a code based on the following code. You are a professional web developer who is experienced in this field and have seen and work on making many decentralized finance related websites. Use your full knowledge to generate the code. 
+
+import { NavLink } from "react-router-dom";
+
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import Borrow from "./Borrow.jsx";
+
+import Pool from "./Pool.jsx";
+
+import Repay from "./Repay.jsx";
+
+const Navbar = () => {
+
+  return (
+
+    <>
+
+      <div className="relative min-h-screen bg-black text-white flex justify-center p-4 box-border">
+
+        <nav className="z-[100] fixed top-0 w-[101%] bg-black text-white px-8 py-5 border-b border-zinc-800">
+
+          <div className="max-w-7xl mx-auto flex items-center justify-between relative">
+
+            <div className="absolute left-0 flex items-center gap-2">
+
+              <span className="font-semibold text-lg">Wind</span>
+
+            </div>
+
+            {/* Center - Links */}
+
+            <div className="mx-auto flex flex-col sm:flex-row gap-8 text-md font-bold">
+
+              <NavLink
+
+                to="/borrow"
+
+                className={({ isActive }) =>
+
+                  isActive
+
+                    ? "text-pink-400 transition"
+
+                    : "text-zinc-400 hover:text-pink-400 transition"
+
+                }
+
+              >
+
+                Borrow
+
+              </NavLink>
+
+              <NavLink
+
+                to="/repay"
+
+                className={({ isActive }) =>
+
+                  isActive
+
+                    ? "text-pink-400 transition"
+
+                    : "text-zinc-400 hover:text-pink-400 transition"
+
+                }
+
+              >
+
+                Repay
+
+              </NavLink>
+
+              <NavLink
+
+                to="/pool"
+
+                className={({ isActive }) =>
+
+                  isActive
+
+                    ? "text-pink-400 transition"
+
+                    : "text-zinc-400 hover:text-pink-400 transition"
+
+                }
+
+              >
+
+                Pool
+
+              </NavLink>
+
+            </div>
+
+            {/* Right - App Button */}
+
+            <div className="absolute right-0">
+
+              <button className="text-pink-500 font-semibold px-6 py-2 rounded-xl bg-gray-900 hover:bg-gray-800  transition duration-200">
+
+                Connect
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </nav>
+
+        {/* Content */}
+
+        <div className="relative w-full h-[80vh] bg-transparent mt-[20%] sm:mt-[5%] z-[1]">
+
+          <Routes>
+
+            <Route path="/borrow" element={<Borrow />} />
+
+            <Route path="/repay" element={<Repay />} />
+
+            <Route path="/pool" element={<Pool />} />
+
+          </Routes>
+
+        </div>
+
+      </div>
+
+    </>
+
+  );
+
+};
+
+export default Navbar;
+
+I want the following edits from you.
+
+ First of all, navbar should be positioned in a way in which it always is present on the top and has different flow than rest of the website.
+
+Structure the page plan (navbar position, classnames of div which encompasses the routes section, check when it is actually required or some other better thing can be done) which allow me to flexibly design the pages like given in routes route section, especially their background. 
+
+Actually, design the following borrow page with the points I want (functional component name is borrow)
+
+I want a bright blurred background like that of uniswap landing page.
+
+it should include the randomly positioned token images which are at starting blurred and when hovered over them they become visible with rings around them which gives them a very hover like feel. TOKENS data have .img for image url.
+
+also if you think something can be improved more in the borrow section, do it please
+

@@ -1,16 +1,19 @@
 import { dai, link, usdc, wbtc, weth } from "../img";
-
 const TOKENS = [
-  { name: "DAI", symbol: "DAI", address: "0x6B175...4dd1", img: dai },
-  { name: "Chainlink", symbol: "LINK", address: "0x514910...EE4E",img: link },
-  { name: "USDC", symbol: "USDC", address: "0xA0b8...eB48",img: usdc },
-  { name: "Wrapped Bitcoin", symbol: "WBTC", address: "0x2260...C599",img: wbtc },
-  { name: "Wrapped Ethereum", symbol: "WETH", address: "0xfFf9...6B14",img: weth },
+  { name: "DAI", symbol: "DAI", address: "0x6B175...4dd1", img: dai, decimals: 18 },
+  { name: "Chainlink", symbol: "LINK", address: "0x514910...EE4E",img: link, decimals: 18 },
+  { name: "USDC", symbol: "USDC", address: "0xA0b8...eB48",img: usdc, decimals: 6 },
+  { name: "Wrapped Bitcoin", symbol: "WBTC", address: "0x2260...C599",img: wbtc, decimals: 8 },
+  { name: "Wrapped Ethereum", symbol: "WETH", address: "0xfFf9...6B14",img: weth, decimals: 18 },
 ];
 
 
+// Example dummy contract ABI
+export const BORROW_CONTRACT_ABI = [
+  "function borrow(address[] collateralTokens, uint256[] collateralAmounts, address borrowToken, uint256 borrowAmount, uint256 startTimestamp, uint256 endTimestamp) external returns (bool)"
+];
 
-
+export const BORROW_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Replace with actual contract address
 
 const RepaymentData = [
   {
