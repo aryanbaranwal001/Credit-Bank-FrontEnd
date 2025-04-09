@@ -1768,6 +1768,14 @@ video {
     max-width: 120px;
   }
 
+  .sm\:max-w-\[140px\] {
+    max-width: 140px;
+  }
+
+  .sm\:max-w-\[130px\] {
+    max-width: 130px;
+  }
+
   .sm\:flex-row {
     flex-direction: row;
   }

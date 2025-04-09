@@ -5,7 +5,6 @@ import { X, ChevronDown, Info } from "lucide-react";
 import { TOKENS } from "../data";
 import { ethers } from "ethers";
 
-
 const RepayCard = () => {
   const [tokenModalOpen, setTokenModalOpen] = useState(false);
   const [selectedTokens, setSelectedTokens] = useState({});
@@ -19,28 +18,32 @@ const RepayCard = () => {
   useEffect(() => {
     const mockPrices = {
       DAI: 1,
-      ETH: 3500,
+      WETH: 3500,
       USDC: 1,
       WBTC: 62000,
       LINK: 18,
     };
 
     const newUsdValues = {};
-    
+
     // Calculate repay values
     Object.entries(repayAmounts).forEach(([itemId, amount]) => {
       const token = selectedTokens[itemId]?.symbol || "DAI";
       const price = mockPrices[token] || 0;
-      newUsdValues[`repay-${itemId}`] = amount ? (parseFloat(amount) * price).toFixed(2) : "0.00";
+      newUsdValues[`repay-${itemId}`] = amount
+        ? (parseFloat(amount) * price).toFixed(2)
+        : "0.00";
     });
-    
+
     // Calculate collateral values
     Object.entries(collateralAmounts).forEach(([itemId, amount]) => {
-      const token = selectedTokens[`collateral-${itemId}`]?.symbol || "ETH";
+      const token = selectedTokens[`collateral-${itemId}`]?.symbol || "DAI";
       const price = mockPrices[token] || 0;
-      newUsdValues[`collateral-${itemId}`] = amount ? (parseFloat(amount) * price).toFixed(2) : "0.00";
+      newUsdValues[`collateral-${itemId}`] = amount
+        ? (parseFloat(amount) * price).toFixed(2)
+        : "0.00";
     });
-    
+
     setUsdValues(newUsdValues);
   }, [repayAmounts, collateralAmounts, selectedTokens]);
 
@@ -62,7 +65,7 @@ const RepayCard = () => {
   const handleRepay = (itemId) => {
     const amount = repayAmounts[itemId];
     const token = selectedTokens[itemId]?.symbol || "DAI";
-    
+
     if (amount && parseFloat(amount) > 0) {
       console.log(`Repaying ${amount} ${token} for item ${itemId}`);
       // Here you would integrate with ethers.js for blockchain interaction
@@ -79,8 +82,8 @@ const RepayCard = () => {
 
   const handleAddCollateral = (itemId) => {
     const amount = collateralAmounts[itemId];
-    const token = selectedTokens[`collateral-${itemId}`]?.symbol || "ETH";
-    
+    const token = selectedTokens[`collateral-${itemId}`]?.symbol || "DAI";
+
     if (amount && parseFloat(amount) > 0) {
       console.log(`Adding ${amount} ${token} as collateral for item ${itemId}`);
       // Similar ethers.js integration as above
@@ -92,47 +95,52 @@ const RepayCard = () => {
   // Animation variants
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
-        damping: 15 
-      }
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      },
     },
     hover: {
       scale: 1.02,
       boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
-      transition: { type: "spring", stiffness: 300, damping: 20 }
-    }
+      transition: { type: "spring", stiffness: 300, damping: 20 },
+    },
   };
 
   const fadeIn = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.3 } }
+    visible: { opacity: 1, transition: { duration: 0.3 } },
   };
 
   // Style constants for consistent design
-  const buttonStyle = "px-5 py-2 rounded-xl text-lg font-semibold transition-all duration-200 shadow-sm";
+  const buttonStyle =
+    "px-5 py-2 rounded-xl text-lg font-semibold transition-all duration-200 shadow-sm";
   const addCollateralButtonStyle = `${buttonStyle} bg-[#28382c] hover:bg-[#2f4e3a] text-emerald-200 hover:text-emerald-300 border border-emerald-900/40`;
   const repayButtonStyle = `${buttonStyle} bg-[#28382c] hover:bg-[#2f4e3a] text-emerald-200 hover:text-emerald-300 border border-emerald-900/40`;
 
   return (
     <>
-      
-      <motion.div 
+      <motion.div
         className="min-h-screen text-white bg-zinc-950 flex flex-col items-center overflow-x-hidden hide-horizontal-scroll"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
       >
         {/* Fixed Header */}
-        <motion.div 
+        <motion.div
           className="sticky top-0 z-10 w-full max-w-6xl rounded-b-2xl bg-zinc-900 shadow-2xl border-b border-zinc-700"
           initial={{ y: -100 }}
           animate={{ y: 0 }}
-          transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
+          transition={{
+            type: "spring",
+            stiffness: 100,
+            damping: 20,
+            delay: 0.2,
+          }}
         >
           <div className="h-16 flex items-center justify-center text-2xl font-bold tracking-wide text-white">
             <motion.span
@@ -162,23 +170,23 @@ const RepayCard = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_auto] gap-6 lg:gap-8">
                 {/* Collateral Section */}
                 <div className="bg-zinc-800/50 rounded-xl p-4">
-                  <motion.h2 
+                  <motion.h2
                     className="text-lg font-semibold mb-4 text-pink-400 flex items-center"
                     whileHover={{ x: 5 }}
                   >
                     Collateral
-                    <motion.div 
+                    <motion.div
                       whileHover={{ rotate: 180 }}
                       transition={{ duration: 0.3 }}
                     >
                       <Info size={16} className="ml-2 text-pink-300/70" />
                     </motion.div>
                   </motion.h2>
-                  
+
                   <div className="space-y-3">
                     {item.collateral.map((col, idx) => (
-                      <motion.div 
-                        key={idx} 
+                      <motion.div
+                        key={idx}
                         className="bg-zinc-800/80 rounded-lg p-3"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -190,7 +198,9 @@ const RepayCard = () => {
                               <span className="text-2xl text-pink-200 mr-2">
                                 {col.amount}
                               </span>
-                              <span className="text-sm text-gray-400">{col.token}</span>
+                              <span className="text-sm text-gray-400">
+                                {col.token}
+                              </span>
                             </div>
                             <div className="ml-1 text-sm text-emerald-500">
                               ${col.usd}
@@ -200,7 +210,7 @@ const RepayCard = () => {
                       </motion.div>
                     ))}
 
-                    <motion.div 
+                    <motion.div
                       className="mt-4 p-4 bg-gradient-to-r from-zinc-800 to-zinc-800/70 rounded-xl shadow-inner"
                       whileHover={{ scale: 1.02 }}
                     >
@@ -214,7 +224,11 @@ const RepayCard = () => {
                           </div>
                         </div>
                         <motion.div
-                          animate={hoveringItem === item.id ? { scale: [1, 1.1, 1] } : {}}
+                          animate={
+                            hoveringItem === item.id
+                              ? { scale: [1, 1.1, 1] }
+                              : {}
+                          }
                           transition={{ repeat: Infinity, duration: 2 }}
                         >
                           <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-500/20 to-emerald-300/20 flex items-center justify-center">
@@ -232,7 +246,7 @@ const RepayCard = () => {
                             className="pl-4 pr-2 py-3 w-full bg-zinc-800 text-white outline-none text-xl"
                             placeholder="0"
                             value={collateralAmounts[item.id] || ""}
-                            onChange={(e) => 
+                            onChange={(e) =>
                               setCollateralAmounts((prev) => ({
                                 ...prev,
                                 [item.id]: e.target.value,
@@ -245,13 +259,17 @@ const RepayCard = () => {
                               setTokenModalOpen(true);
                               setActiveTokenCardId(`collateral-${item.id}`);
                             }}
-                            className="px-4 py-3 w-full sm:max-w-[120px] flex flex-row items-center justify-center bg-[#3c3c44] hover:bg-[#4b4b52] text-white transition"
-                            whileHover={{ backgroundColor: "rgba(75, 75, 82, 0.9)" }}
+                            className="px-4 py-3 w-full sm:max-w-[130px] flex flex-row items-center justify-center bg-[#3c3c44] hover:bg-[#4b4b52] text-white transition"
+                            whileHover={{
+                              backgroundColor: "rgba(75, 75, 82, 0.9)",
+                            }}
                             whileTap={{ scale: 0.98 }}
                           >
                             {selectedTokens[`collateral-${item.id}`]?.img ? (
                               <img
-                                src={selectedTokens[`collateral-${item.id}`].img}
+                                src={
+                                  selectedTokens[`collateral-${item.id}`].img
+                                }
                                 alt="Token"
                                 className="h-6 w-6 mr-2 object-contain"
                               />
@@ -263,7 +281,8 @@ const RepayCard = () => {
                               />
                             )}
                             <span>
-                              {selectedTokens[`collateral-${item.id}`]?.symbol ?? "DAI"}
+                              {selectedTokens[`collateral-${item.id}`]
+                                ?.symbol ?? "DAI"}
                             </span>
                             <ChevronDown size={16} className="ml-1" />
                           </motion.button>
@@ -274,7 +293,7 @@ const RepayCard = () => {
                       </div>
                     </div>
 
-                    <motion.button 
+                    <motion.button
                       className={addCollateralButtonStyle + " w-full mt-4"}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -287,12 +306,12 @@ const RepayCard = () => {
 
                 {/* Borrow Section */}
                 <div className="bg-zinc-800/50 rounded-xl p-4 flex flex-col justify-between">
-                  <motion.h2 
+                  <motion.h2
                     className="text-lg font-semibold mb-4 text-pink-400 flex items-center"
                     whileHover={{ x: 5 }}
                   >
                     Borrowings
-                    <motion.div 
+                    <motion.div
                       whileHover={{ rotate: 180 }}
                       transition={{ duration: 0.3 }}
                     >
@@ -300,7 +319,7 @@ const RepayCard = () => {
                     </motion.div>
                   </motion.h2>
 
-                  <motion.div 
+                  <motion.div
                     className="mt-2 mb-4 p-4 bg-gradient-to-r from-zinc-800 to-zinc-800/70 rounded-xl shadow-inner"
                     whileHover={{ scale: 1.02 }}
                   >
@@ -342,7 +361,9 @@ const RepayCard = () => {
                             setActiveTokenCardId(item.id);
                           }}
                           className="px-4 py-3 w-full sm:max-w-[120px] flex flex-row items-center justify-center bg-[#3c3c44] hover:bg-[#4b4b52] text-white transition"
-                          whileHover={{ backgroundColor: "rgba(75, 75, 82, 0.9)" }}
+                          whileHover={{
+                            backgroundColor: "rgba(75, 75, 82, 0.9)",
+                          }}
                           whileTap={{ scale: 0.98 }}
                         >
                           {selectedTokens[item.id]?.img ? (
@@ -383,50 +404,61 @@ const RepayCard = () => {
                 {/* Health & Credit Score Section */}
                 <div className="bg-zinc-800/30 rounded-xl p-4 flex flex-col justify-center items-center">
                   <div className="flex flex-col sm:flex-row lg:flex-col justify-around items-center gap-5 w-full">
-                    <motion.div 
+                    <motion.div
                       className="flex flex-col items-center bg-zinc-800/80 rounded-xl p-4 w-full"
                       whileHover={{ y: -5 }}
                     >
                       <span className="text-green-300 text-lg font-bold tracking-wide">
                         Health Factor
                       </span>
-                      <motion.div 
+                      <motion.div
                         className="mt-2 px-6 py-1 text-green-300 text-4xl font-black"
                         initial={{ scale: 0.9 }}
-                        animate={hoveringItem === item.id ? 
-                          { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2 }} : 
-                          { scale: 1 }}
+                        animate={
+                          hoveringItem === item.id
+                            ? {
+                                scale: [1, 1.05, 1],
+                                transition: { repeat: Infinity, duration: 2 },
+                              }
+                            : { scale: 1 }
+                        }
                       >
                         {item.healthFactor}
                       </motion.div>
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                       className="flex flex-col items-center bg-zinc-800/80 rounded-xl p-4 w-full"
                       whileHover={{ y: -5 }}
                     >
                       <span className="text-blue-400 text-lg font-bold tracking-wide">
                         Credit Score
                       </span>
-                      <motion.div 
+                      <motion.div
                         className="mt-2 px-6 py-1 text-blue-400 text-4xl font-black"
                         initial={{ scale: 0.9 }}
-                        animate={hoveringItem === item.id ? 
-                          { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2 }} : 
-                          { scale: 1 }}
+                        animate={
+                          hoveringItem === item.id
+                            ? {
+                                scale: [1, 1.05, 1],
+                                transition: { repeat: Infinity, duration: 2 },
+                              }
+                            : { scale: 1 }
+                        }
                       >
                         {item.creditScore}
                       </motion.div>
                     </motion.div>
                   </div>
 
-                  <motion.div 
+                  <motion.div
                     className="mt-4 text-xs text-center text-zinc-500"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 0.8 }}
                     transition={{ delay: 0.5 }}
                   >
-                    Maintaining a healthy collateral ratio keeps your assets safe from liquidation
+                    Maintaining a healthy collateral ratio keeps your assets
+                    safe from liquidation
                   </motion.div>
                 </div>
               </div>
@@ -455,7 +487,7 @@ const RepayCard = () => {
               >
                 <div className="flex items-center justify-between mb-5 border-b border-zinc-800 pb-2">
                   <h2 className="text-xl font-semibold">Select a token</h2>
-                  <motion.button 
+                  <motion.button
                     onClick={() => setTokenModalOpen(false)}
                     whileHover={{ rotate: 90 }}
                     transition={{ duration: 0.2 }}
@@ -470,7 +502,10 @@ const RepayCard = () => {
                       key={idx}
                       className="flex items-center justify-between p-3 hover:bg-zinc-800 rounded-lg cursor-pointer"
                       onClick={() => handleSelectToken(token)}
-                      whileHover={{ backgroundColor: "rgba(63, 63, 70, 0.8)", x: 5 }}
+                      whileHover={{
+                        backgroundColor: "rgba(63, 63, 70, 0.8)",
+                        x: 5,
+                      }}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.05 }}
@@ -491,7 +526,12 @@ const RepayCard = () => {
                             {token.symbol}
                             {token.address && (
                               <span className="text-gray-500 ml-1">
-                                {`${token.address.substring(0, 6)}...${token.address.substring(token.address.length - 4)}`}
+                                {`${token.address.substring(
+                                  0,
+                                  6
+                                )}...${token.address.substring(
+                                  token.address.length - 4
+                                )}`}
                               </span>
                             )}
                           </div>
