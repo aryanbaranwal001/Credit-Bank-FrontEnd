@@ -2,7 +2,15 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ChevronDown, X, MoveRight, Plus, Calendar, Info, ArrowRight } from "lucide-react";
+import {
+  ChevronDown,
+  X,
+  MoveRight,
+  Plus,
+  Calendar,
+  Info,
+  ArrowRight,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import { useWeb3 } from "../context/Web3Context";
@@ -10,8 +18,9 @@ import { TOKENS } from "../data.js";
 
 // The TokenDropdown component with fixed z-index to ensure it appears on top
 const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
-  const dropdownPosition = position === "top" ? "-top-2 -translate-y-full" : "top-full";
-  
+  const dropdownPosition =
+    position === "top" ? "-top-2 -translate-y-full" : "top-full";
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -25,12 +34,15 @@ const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
           <div className="p-3 border-b border-zinc-800">
             <div className="flex items-center justify-between">
               <h3 className="text-white font-medium">Select Token</h3>
-              <button onClick={onClose} className="text-zinc-400 hover:text-white">
+              <button
+                onClick={onClose}
+                className="text-zinc-400 hover:text-white"
+              >
                 <X size={18} />
               </button>
             </div>
           </div>
-          
+
           <div className="max-h-64 overflow-y-auto py-2 custom-scrollbar">
             {tokens.length > 0 ? (
               tokens.map((token) => (
@@ -41,9 +53,15 @@ const TokenDropdown = ({ isOpen, tokens, onSelect, onClose, position }) => {
                   onClick={() => onSelect(token)}
                 >
                   <div className="flex items-center space-x-3">
-                    <img src={token.img} alt={token.symbol} className="w-8 h-8 rounded-full" />
+                    <img
+                      src={token.img}
+                      alt={token.symbol}
+                      className="w-8 h-8 rounded-full"
+                    />
                     <div>
-                      <div className="text-white font-medium">{token.symbol}</div>
+                      <div className="text-white font-medium">
+                        {token.symbol}
+                      </div>
                       <div className="text-xs text-zinc-400">{token.name}</div>
                     </div>
                   </div>
@@ -69,29 +87,29 @@ const calculateUsdValue = (amount, token) => {
 };
 
 // Individual collateral input field component
-const CollateralField = ({ 
-  item, 
-  availableTokens, 
-  onChange, 
-  onRemove, 
-  isLast, 
-  isFirst 
+const CollateralField = ({
+  item,
+  availableTokens,
+  onChange,
+  onRemove,
+  isLast,
+  isFirst,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   const handleAmountChange = (e) => {
     const value = e.target.value;
     onChange({ ...item, amount: value });
   };
-  
+
   const handleTokenSelect = (token) => {
     onChange({ ...item, token });
     setIsDropdownOpen(false);
   };
-  
+
   // Calculate USD value
   const usdValue = calculateUsdValue(item.amount, item.token);
-  
+
   return (
     <motion.div
       layout
@@ -100,7 +118,7 @@ const CollateralField = ({
       exit={{ opacity: 0, y: -20 }}
       className="relative mb-3"
     >
-      <motion.div 
+      <motion.div
         className="bg-zinc-900/90 backdrop-blur-md px-4 py-3 rounded-2xl border border-zinc-800/50"
         whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
         transition={{ duration: 0.3 }}
@@ -114,23 +132,28 @@ const CollateralField = ({
             onChange={handleAmountChange}
             className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
           />
-          
-          <div className="relative" style={{ zIndex: isDropdownOpen ? 50 : 1 }}>
+
+          <div className="relative">
             <motion.button
-              className="gap-1 bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1 rounded-full flex items-center space-x-1"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
+              className="gap-1 bg-zinc-800 text-white pr-3 rounded-full flex flex-row items-center justify-end space-x-1"
             >
               <img
-                className="w-6 h-6 rounded-full"
-                src={item.token.img}
-                alt={item.token.symbol}
+                className="ml-4 w-6 h-6"
+                src={`${item.token.img}`}
+                alt={`${item.token.symbol}`}
               />
-              <span className="text-sm whitespace-nowrap mr-1">{item.token.symbol}</span>
-              <ChevronDown size={16} />
+              <span className="text-sm whitespace-nowrap">
+                {item.token.symbol}
+              </span>
+
+              {/* </div> */}
+              <ChevronDown className="w-12 h-12" />
             </motion.button>
-            
+            {/* this work, that why ediitng              */}
+
             <TokenDropdown
               isOpen={isDropdownOpen}
               tokens={availableTokens}
@@ -139,7 +162,7 @@ const CollateralField = ({
             />
           </div>
         </div>
-        
+
         <div className="flex justify-between mt-2">
           <div className="text-sm text-zinc-500">${usdValue}</div>
           {!isFirst && (
@@ -165,7 +188,7 @@ export default function Borrow() {
   const [endDate, setEndDate] = useState(null);
   const [borrowAmount, setBorrowAmount] = useState("");
   const [dropdownType, setDropdownType] = useState(null);
-  
+
   // Collateral fields - updated to use the enhanced tokens
   const [collaterals, setCollaterals] = useState([
     {
@@ -174,118 +197,121 @@ export default function Borrow() {
       amount: "",
     },
   ]);
-  
+
   // Selected borrow token - updated to use enhanced tokens
   const [selectedBorrowToken, setSelectedBorrowToken] = useState(TOKENS[0]);
-  
+
   // Calculate USD value for borrow amount
   const borrowUsdValue = calculateUsdValue(borrowAmount, selectedBorrowToken);
-  
+
   // Calculate what tokens are available for collateral (not already selected)
   const getAvailableTokens = (currentId) => {
     const selectedTokens = collaterals
-      .filter(item => item.id !== currentId)
-      .map(item => item.token.symbol);
-    
-    return TOKENS.filter(token => !selectedTokens.includes(token.symbol));
+      .filter((item) => item.id !== currentId)
+      .map((item) => item.token.symbol);
+
+    return TOKENS.filter((token) => !selectedTokens.includes(token.symbol));
   };
-  
+
   // Find next available token that isn't currently selected
   const getNextAvailableToken = () => {
-    const selectedTokens = collaterals.map(item => item.token.symbol);
-    return TOKENS.find(token => !selectedTokens.includes(token.symbol)) || TOKENS[0];
+    const selectedTokens = collaterals.map((item) => item.token.symbol);
+    return (
+      TOKENS.find((token) => !selectedTokens.includes(token.symbol)) ||
+      TOKENS[0]
+    );
   };
-  
+
   // Handle adding a new collateral field
   const addCollateral = () => {
     if (collaterals.length >= 5) {
       toast.error("Maximum 5 collateral fields allowed");
       return;
     }
-    
+
     const nextToken = getNextAvailableToken();
-    
-    setCollaterals(prev => [
+
+    setCollaterals((prev) => [
       ...prev,
       {
         id: Date.now(),
         token: nextToken,
         amount: "",
-      }
+      },
     ]);
   };
   // Handle removing a collateral field
   const removeCollateral = (id) => {
-    setCollaterals(prev => prev.filter(item => item.id !== id));
+    setCollaterals((prev) => prev.filter((item) => item.id !== id));
   };
-  
+
   // Update a specific collateral field
   const updateCollateral = (updatedItem) => {
-    setCollaterals(prev => 
-      prev.map(item => item.id === updatedItem.id ? updatedItem : item)
+    setCollaterals((prev) =>
+      prev.map((item) => (item.id === updatedItem.id ? updatedItem : item))
     );
   };
-  
+
   // Date validation
   const validateDates = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     if (startDate && startDate < today) {
       toast.error("Start date cannot be in the past");
       return false;
     }
-    
+
     if (startDate && endDate && endDate <= startDate) {
       toast.error("End date must be after start date");
       return false;
     }
-    
+
     return true;
   };
-  
+
   // Validate form before submission
   const validateForm = () => {
     if (!isConnected) {
       toast.error("Please connect your wallet first");
       return false;
     }
-    
+
     if (!startDate || !endDate) {
       toast.error("Please select start and end dates");
       return false;
     }
-    
+
     if (!validateDates()) {
       return false;
     }
-    
+
     if (!borrowAmount || parseFloat(borrowAmount) <= 0) {
       toast.error("Please enter a valid borrow amount");
       return false;
     }
-    
+
     const validCollaterals = collaterals.filter(
-      item => item.amount && parseFloat(item.amount) > 0
+      (item) => item.amount && parseFloat(item.amount) > 0
     );
-    
+
     if (validCollaterals.length === 0) {
       toast.error("Please add at least one collateral with an amount");
       return false;
     }
-    
+
     return true;
   };
-  
+
   // Handle borrow submission
   const handleBorrow = async () => {
     if (!validateForm()) return;
-    
+
     // Filter out collaterals with empty amounts
     const validCollaterals = collaterals.filter(
-      item => item.amount && parseFloat(item.amount) > 0
+      (item) => item.amount && parseFloat(item.amount) > 0
     );
-    
+
     // Call contract function from Web3Context
     const result = await borrowTokens(
       validCollaterals,
@@ -294,7 +320,7 @@ export default function Borrow() {
       startDate,
       endDate
     );
-    
+
     if (result) {
       // Reset form
       setBorrowAmount("");
@@ -305,11 +331,11 @@ export default function Borrow() {
           id: Date.now(),
           token: TOKENS[0],
           amount: "",
-        }
+        },
       ]);
     }
   };
-  
+
   useEffect(() => {
     // Validate dates whenever they change
     if (startDate && endDate) {
@@ -362,7 +388,7 @@ export default function Borrow() {
 
           {/* Add Collateral Button */}
           {collaterals.length < 5 && (
-            <motion.div 
+            <motion.div
               className="flex justify-center my-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -394,23 +420,29 @@ export default function Borrow() {
                 onChange={(e) => setBorrowAmount(e.target.value)}
                 className="bg-transparent text-2xl outline-none w-full text-white placeholder-zinc-600"
               />
-              
-              <div className="relative" style={{ zIndex: dropdownType === "borrow" ? 50 : 1 }}>
+
+              <div className="relative">
                 <motion.button
-                  className="gap-1 bg-zinc-800 hover:bg-zinc-700 text-white px-2 py-1 rounded-full flex items-center space-x-1"
-                  onClick={() => setDropdownType(dropdownType === "borrow" ? null : "borrow")}
+                  className="gap-1 bg-zinc-800 text-white pr-3 rounded-full flex flex-row items-center justify-end space-x-1"
+                  onClick={() =>
+                    setDropdownType(dropdownType === "borrow" ? null : "borrow")
+                  }
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <img
-                    className="w-6 h-6 rounded-full"
-                    src={selectedBorrowToken.img}
-                    alt={selectedBorrowToken.symbol}
+                    className="ml-4 w-6 h-6"
+                    src={`${selectedBorrowToken.img}`}
+                    alt={`${selectedBorrowToken.symbol}`}
                   />
-                  <span className="text-sm whitespace-nowrap mr-1">{selectedBorrowToken.symbol}</span>
-                  <ChevronDown size={16} />
+                  <span className="text-sm whitespace-nowrap">
+                    {selectedBorrowToken.symbol}
+                  </span>
+
+                  {/* </div> */}
+                  <ChevronDown className="w-12 h-12" />
                 </motion.button>
-                
+
                 <TokenDropdown
                   isOpen={dropdownType === "borrow"}
                   tokens={TOKENS}
@@ -431,8 +463,11 @@ export default function Borrow() {
             whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
           >
             <div className="text-sm text-zinc-400 mb-3">Repayment Period</div>
-            
-            <div className="flex items-center justify-between relative" style={{ zIndex: isCalendarOpen ? 40 : 1 }}>
+
+            <div
+              className="flex items-center justify-between relative"
+              style={{ zIndex: isCalendarOpen ? 40 : 1 }}
+            >
               <div className="flex items-center space-x-2 bg-zinc-800/80 px-3 py-2 rounded-xl">
                 <Calendar size={16} className="text-zinc-400" />
                 <DatePicker
@@ -442,13 +477,15 @@ export default function Borrow() {
                   onCalendarClose={() => setIsCalendarOpen(false)}
                   dateFormat="MMM dd, yyyy"
                   placeholderText="Start Date"
-                  minDate={new Date(new Date().setDate(new Date().getDate() + 1))} // Tomorrow
+                  minDate={
+                    new Date(new Date().setDate(new Date().getDate() + 1))
+                  } // Tomorrow
                   className="bg-transparent text-sm text-white outline-none w-28 placeholder-zinc-500"
                 />
               </div>
-              
+
               <ArrowRight size={16} className="text-zinc-500" />
-              
+
               <div className="flex items-center space-x-2 bg-zinc-800/80 px-3 py-2 rounded-xl">
                 <Calendar size={16} className="text-zinc-400" />
                 <DatePicker
@@ -458,12 +495,15 @@ export default function Borrow() {
                   onCalendarClose={() => setIsCalendarOpen(false)}
                   dateFormat="MMM dd, yyyy"
                   placeholderText="End Date"
-                  minDate={startDate || new Date(new Date().setDate(new Date().getDate() + 2))} // Start date or day after tomorrow
+                  minDate={
+                    startDate ||
+                    new Date(new Date().setDate(new Date().getDate() + 2))
+                  } // Start date or day after tomorrow
                   className="bg-transparent text-sm text-white outline-none w-28 placeholder-zinc-500"
                 />
               </div>
             </div>
-            
+
             <div className="flex items-center mt-3 text-xs text-zinc-400">
               <Info size={12} className="mr-1" />
               <span>Set a time period for your loan</span>
@@ -481,7 +521,10 @@ export default function Borrow() {
               <motion.button
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-xl"
                 onClick={handleBorrow}
-                whileHover={{ scale: 1.02, boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)" }}
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)",
+                }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 500, damping: 15 }}
               >
@@ -491,7 +534,10 @@ export default function Borrow() {
               <motion.button
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-xl"
                 onClick={connectWallet}
-                whileHover={{ scale: 1.02, boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)" }}
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow: "0 10px 25px -5px rgba(236, 72, 153, 0.4)",
+                }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 500, damping: 15 }}
               >
